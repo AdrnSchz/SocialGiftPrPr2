@@ -1,10 +1,12 @@
-package com.example.socialgift;
+package com.example.socialgift.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class InitialScreen extends AppCompatActivity {
+import com.example.socialgift.R;
+
+public class InitialScreenActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

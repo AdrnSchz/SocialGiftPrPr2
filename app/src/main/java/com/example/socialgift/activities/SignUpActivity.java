@@ -1,10 +1,12 @@
-package com.example.socialgift;
+package com.example.socialgift.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class SignUp extends AppCompatActivity {
+import com.example.socialgift.R;
+
+public class SignUpActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
