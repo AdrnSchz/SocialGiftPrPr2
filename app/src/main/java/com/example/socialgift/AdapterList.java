@@ -15,7 +15,7 @@ public class AdapterList extends Adapter<CustomViewHolder> {
     private final List<ListComponent> data;
     private final LayoutInflater layoutInflater;
 
-    public AdapterList(List<ListComponent> list, Context context) {
+    public AdapterList(Context context, List<ListComponent> list) {
         this.layoutInflater = LayoutInflater.from(context);
         this.data = list;
     }

@@ -8,22 +8,22 @@ public class ListComponent {
     private String giftName;
     private String listName;
 
-    public ListComponent(String userName, String userImage, String giftName, String listName) {
+    public ListComponent(String userName, String userImage, String listName) {
         this.userName = userName;
         this.userImage = userImage;
-        this.giftName = giftName;
         this.listName = listName;
+        this.giftName = null;
         this.userEmail = null;
-
     }
 
     public ListComponent(String userName, String userImage, String userEmail, String giftName, String listName) {
-        this(userName, userImage, giftName, listName);
+        this(userName, userImage, listName);
         this.userEmail = userEmail;
+        this.giftName = giftName;
     }
 
     public ListComponent(String name, int type) {
-        this(null, null, null, null);
+        this(null, null, null);
         if (type == 1) {
             giftName = name;
         }

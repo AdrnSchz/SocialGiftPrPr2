@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">SocialGift</string>
     <string name="home_page_title">SocialGift</string>
+    <string name="error_wishlists">Failed to retrieve global wishlists</string>
+    <string name="error_no_wishlists">There are no wishlists globally</string>
 </resources>
