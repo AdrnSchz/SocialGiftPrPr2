@@ -63,9 +63,7 @@ public class HomeFragment extends Fragment {
                         Toast.makeText(getContext(), R.string.error_wishlists, Toast.LENGTH_LONG).show();
                     }
                 },
-                error -> {
-                    Toast.makeText(getContext(), R.string.error_no_wishlists, Toast.LENGTH_LONG).show();
-                }
+                error -> Toast.makeText(getContext(), R.string.error_wishlists, Toast.LENGTH_LONG).show()
         );
         return view;
     }
