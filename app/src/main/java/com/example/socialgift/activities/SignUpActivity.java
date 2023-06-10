@@ -1,14 +1,16 @@
-package com.example.socialgift;
+package com.example.socialgift.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class InitialScreen extends AppCompatActivity {
+import com.example.socialgift.R;
+
+public class SignUpActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_initial_screen);
+        setContentView(R.layout.activity_sign_up);
     }
 }

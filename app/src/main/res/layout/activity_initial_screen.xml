@@ -7,7 +7,7 @@
     android:outlineAmbientShadowColor="#000000"
     android:outlineSpotShadowColor="#000000"
     android:visibility="visible"
-    tools:context=".InitialScreen"
+    tools:context=".activities.InitialScreenActivity"
     tools:visibility="visible">
 
     <TextView
