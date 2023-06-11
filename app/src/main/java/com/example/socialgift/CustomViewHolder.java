@@ -6,6 +6,12 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
+import com.squareup.picasso.Picasso;
+
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
+
 public class CustomViewHolder extends ViewHolder {
 
     private ImageView userPhoto;
@@ -22,7 +28,18 @@ public class CustomViewHolder extends ViewHolder {
     void bindData(final ListComponent item) {
         userName.setText(item.getUserName());
         listName.setText(item.getListName());
-        //userName.setTextSize(25);
-        //description.setTextSize(20);
+        if (item.getUserName().length() > 9) {
+            userName.setTextSize(34 - (item.getUserName().length() - 9));
+        }
+        if (item.getListName().length() > 14) {
+            userName.setTextSize(24 - (item.getUserName().length() - 14));
+        }
+
+        try {
+            new URL(item.getUserImage()).toURI();
+        } catch (MalformedURLException | URISyntaxException e) {
+            return;
+        }
+        Picasso.get().load(item.getUserImage()).into(userPhoto);
     }
 }
