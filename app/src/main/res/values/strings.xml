@@ -9,4 +9,6 @@
     <string name="email_repeated">Email is already in use</string>
     <string name="error_login">Error logging in</string>
     <string name="error_wishlists">Failed to retrieve global wishlists</string>
+    <string name="search_title">Search</string>
+    <string name="error_search">Failed to retrieve user searched</string>
 </resources>
