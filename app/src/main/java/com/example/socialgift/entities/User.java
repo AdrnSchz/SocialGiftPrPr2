@@ -2,36 +2,33 @@ package com.example.socialgift.entities;
 
 public class User {
 
-    private static int id;
-    private static String name;
-    private static String surname;
-    private static String email;
-    private static String imageLink;
+    private int id;
+    private String name;
+    private String email;
+    private String photo;
 
-    public static int id(){
+    public User(int id, String name, String email, String photo) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.photo = photo;
+    }
+
+    public User(String name, String photo) {
+        this(-1, name, null, photo);
+    }
+
+    public int getId() {
         return id;
     }
 
-    public static String getName(){
+    public String getName() {
         return name;
     }
 
-    public static String getSurname(){
-        return surname;
-    }
+    public String getEmail() { return email; }
 
-    public static String getEmail(){
-        return email;
-    }
-
-    public static String getImageLink(){
-        return imageLink;
-    }
-
-    public static void updateLoggedInUser(int newId, String newName, String newSurname, String newEmail){
-        id = newId;
-        name = newName;
-        surname = newSurname;
-        email = newEmail;
+    public String getPhoto() {
+        return photo;
     }
 }
