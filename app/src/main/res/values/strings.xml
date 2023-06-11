@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name">SocialGift</string>
     <string name="home_page_title">SocialGift</string>
+    <string name="fields_empty_error">All fields should be full</string>
+    <string name="email_field_error">The email should contain an @</string>
+    <string name="confirmation_field_error">The two passwords should match</string>
+    <string name="user_created">User registered</string>
+    <string name="error_user_creation">Error registering user</string>
+    <string name="email_repeated">Email is already in use</string>
+    <string name="error_login">Error logging in</string>
     <string name="error_wishlists">Failed to retrieve global wishlists</string>
 </resources>
