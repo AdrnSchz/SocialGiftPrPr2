@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdapterList extends Adapter<CustomViewHolder> {
@@ -15,16 +16,16 @@ public class AdapterList extends Adapter<CustomViewHolder> {
     private final List<ListComponent> data;
     private final LayoutInflater layoutInflater;
 
-    public AdapterList(Context context, List<ListComponent> list) {
+    public AdapterList(Context context) {
         this.layoutInflater = LayoutInflater.from(context);
-        this.data = list;
+        this.data = new ArrayList<>();
     }
 
     @NonNull
     @Override
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int typeView) {
 
-        View view = layoutInflater.inflate(R.layout.cardview_home, parent);
+        View view = layoutInflater.inflate(R.layout.cardview_home, parent, false);
         return new CustomViewHolder(view);
     }
 
@@ -51,8 +52,7 @@ public class AdapterList extends Adapter<CustomViewHolder> {
         return data.size();
     }
 
-    public void setItems(List<ListComponent> items) {
-        data.clear();
-        data.addAll(items);
+    public void addItem(ListComponent item) {
+        data.add(item);
     }
 }

@@ -20,9 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Consumer;
 
 public class HomeFragment extends Fragment {
 
@@ -33,7 +31,10 @@ public class HomeFragment extends Fragment {
         APIClient.makeGETRequest(getContext(), "wishlists",
                 response -> {
 
-                    List<ListComponent> wishlists = new ArrayList<>();
+                    RecyclerView recyclerView = view.findViewById(R.id.home_recycler_view);
+                    AdapterList adapterList = new AdapterList(getContext());
+                    recyclerView.setHasFixedSize(true);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
                     try {
                         JSONArray jsonWishlists = new JSONArray(response);
@@ -42,35 +43,41 @@ public class HomeFragment extends Fragment {
 
                             JSONObject jsonWishlist = jsonWishlists.getJSONObject(i);
 
-                            User user = getUser(jsonWishlist.getInt("user_id"));
+                            getUser(jsonWishlist.getInt("user_id"), user -> {
 
-                            if (user == null) continue;
+                                if (user == null) {
+                                    return;
+                                }
 
-                            wishlists.add(
-                                    new ListComponent(
-                                            user.getName(),
-                                            user.getPhoto(),
-                                            jsonWishlist.getString("name")
-                                    )
-                            );
+                                try {
+                                    adapterList.addItem(
+                                            new ListComponent(
+                                                    user.getName(),
+                                                    user.getPhoto(),
+                                                    jsonWishlist.getString("name")
+                                            )
+                                    );
+                                } catch (JSONException e) {
+                                    throw new RuntimeException(e);
+                                }
+
+                                recyclerView.setAdapter(adapterList);
+                            });
                         }
-
-                        RecyclerView recyclerView = view.findViewById(R.id.home_recycler_view);
-                        //recyclerView.setHasFixedSize(true);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                        recyclerView.setAdapter(new AdapterList(getContext(), wishlists));
                     } catch (JSONException e) {
+                        e.printStackTrace();
                         Toast.makeText(getContext(), R.string.error_wishlists, Toast.LENGTH_LONG).show();
                     }
                 },
-                error -> Toast.makeText(getContext(), R.string.error_wishlists, Toast.LENGTH_LONG).show()
+                error -> {
+                    error.printStackTrace();
+                    Toast.makeText(getContext(), R.string.error_wishlists, Toast.LENGTH_LONG).show();
+                }
         );
         return view;
     }
 
-    private User getUser(int id) throws JSONException {
-
-        AtomicReference<User> user = new AtomicReference<>();
+    private void getUser(int id, Consumer<User> callback) throws JSONException {
 
         APIClient.makeGETRequest(getContext(), "users/" + id,
                 response -> {
@@ -79,16 +86,17 @@ public class HomeFragment extends Fragment {
 
                         JSONObject jsonUser = new JSONObject(response);
 
-                        user.set(new User(
+                        callback.accept(new User(
                                 jsonUser.getString("name"),
                                 jsonUser.getString("image")
                         ));
                     } catch (JSONException e) {
-                        throw new RuntimeException(e);
+                        callback.accept(null);
                     }
                 },
-                error -> {}
+                error -> {
+                    callback.accept(null);
+                }
         );
-        return user.get();
     }
 }
