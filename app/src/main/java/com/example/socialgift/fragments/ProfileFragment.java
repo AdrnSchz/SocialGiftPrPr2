@@ -83,7 +83,8 @@ public class ProfileFragment extends Fragment {
                             if (userId == MainActivity.getId()) {
                                 adapterList.addUserProfileItem(
                                         new UserProfileListComponent(
-                                                jsonWishlist.getString("name")
+                                                jsonWishlist.getString("name"),
+                                                jsonWishlist.getString("id")
                                         )
                                 );
                             }
