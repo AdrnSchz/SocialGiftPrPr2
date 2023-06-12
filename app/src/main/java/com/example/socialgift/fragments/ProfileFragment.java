@@ -30,6 +30,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ProfileFragment extends Fragment {
 
@@ -62,8 +63,7 @@ public class ProfileFragment extends Fragment {
         });
 
         statsButton.setOnClickListener(v -> {
-            thisActivity.getSupportFragmentManager().beginTransaction().
-                    replace(R.id.fragment_container_view, new StatisticsFragment()).commit();
+            updateStats(thisActivity);
         });
 
         APIClient.makeGETRequest(getContext(), "wishlists",
@@ -116,4 +116,50 @@ public class ProfileFragment extends Fragment {
         Picasso.get().load(String.valueOf(uri)).into(userImage);
     }
 
+    public void updateStats(AppCompatActivity thisActivity){
+        AtomicInteger gifts = new AtomicInteger();
+        AtomicInteger lists = new AtomicInteger();
+        int userId = MainActivity.getId();
+        String endPoint = "users/" + userId + "/gifts/reserved";
+
+        APIClient.makeGETRequest(getContext(), endPoint,
+                response -> {
+                    try {
+                        JSONArray jsonArray = new JSONArray(response);
+                        gifts.set(jsonArray.length());
+                    }
+                    catch (JSONException e){
+                        gifts.set(0);
+                    }
+                },
+                error -> {
+                    gifts.set(0);
+                });
+
+        endPoint = "users/" + userId + "/wishlists";
+        APIClient.makeGETRequest(getContext(), endPoint,
+                response -> {
+                    try {
+                        JSONArray jsonArray = new JSONArray(response);
+                        lists.set(jsonArray.length());
+
+                        StatisticsFragment statisticsFragment = new StatisticsFragment();
+                        statisticsFragment.numberOfGifts = Integer.toString(gifts.intValue());
+                        statisticsFragment.numberOfLists = Integer.toString(lists.intValue());
+                        statisticsFragment.numberOfPoints = Integer.toString(
+                                gifts.intValue() * 5 + lists.intValue() * 20);
+
+                        thisActivity.getSupportFragmentManager().beginTransaction().
+                                replace(R.id.fragment_container_view, statisticsFragment).commit();
+                    }
+                    catch (JSONException e){
+                        lists.set(0);
+                        Toast.makeText(thisActivity, "Error generating stats", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error -> {
+                    lists.set(0);
+                    Toast.makeText(thisActivity, "Error generating stats", Toast.LENGTH_SHORT).show();
+                });
+    }
 }

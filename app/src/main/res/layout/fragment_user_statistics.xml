@@ -6,28 +6,28 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/rectangle2"
+        android:id="@+id/stats_user_rectangle2"
         android:layout_width="330dp"
         android:layout_height="130dp"
         android:layout_marginTop="36dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rectangle"
+        app:layout_constraintTop_toBottomOf="@+id/stats_user_rectangle"
         app:srcCompat="@drawable/rectangle_stats" />
 
     <ImageView
-        android:id="@+id/rectangle"
+        android:id="@+id/stats_user_rectangle"
         android:layout_width="330dp"
         android:layout_height="130dp"
         android:layout_marginTop="36dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rectangle3"
+        app:layout_constraintTop_toBottomOf="@+id/stats_user_rectangle3"
         app:srcCompat="@drawable/rectangle_stats" />
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/stats_profile_picture"
+        android:id="@+id/stats_user_profile_picture"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
@@ -37,13 +37,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.099"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stats_title"
+        app:layout_constraintTop_toBottomOf="@+id/stats_user_title"
         app:shapeAppearanceOverlay="@style/circleImageView"
         app:strokeWidth="10dp"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/stats_title"
+        android:id="@+id/stats_user_title"
         android:layout_width="157dp"
         android:layout_height="45dp"
         android:fontFamily="@font/abeezee"
@@ -59,21 +59,6 @@
         app:layout_constraintVertical_bias="0.060000002" />
 
     <ImageButton
-        android:id="@+id/stats_settings_button"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@color/white"
-        android:scaleType="fitCenter"
-        android:contentDescription="button of settings"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.87"
-        app:layout_constraintStart_toEndOf="@+id/stats_title"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.062"
-        app:srcCompat="@drawable/settings_wheel" />
-
-    <ImageButton
         android:id="@+id/stats_user_tolist_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -82,8 +67,12 @@
         android:background="@color/white"
         android:contentDescription="button of show lists"
         android:scaleType="fitCenter"
-        app:layout_constraintEnd_toStartOf="@+id/stats_settings_button"
-        app:layout_constraintTop_toTopOf="@+id/stats_settings_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.87"
+        app:layout_constraintStart_toEndOf="@+id/stats_user_title"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.062"
         app:srcCompat="@drawable/show_lists" />
 
     <TextView
@@ -96,31 +85,31 @@
         android:text="Username"
         android:textColor="#000000"
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/stats_profile_picture"
-        app:layout_constraintTop_toTopOf="@+id/stats_profile_picture" />
+        app:layout_constraintStart_toEndOf="@+id/stats_user_profile_picture"
+        app:layout_constraintTop_toTopOf="@+id/stats_user_profile_picture" />
 
     <TextView
-        android:id="@+id/stats_email"
+        android:id="@+id/stats_user_email"
         android:layout_width="212dp"
         android:layout_height="18dp"
         android:layout_marginStart="12dp"
         android:text="useremail"
         android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/stats_profile_picture"
+        app:layout_constraintStart_toEndOf="@+id/stats_user_profile_picture"
         app:layout_constraintTop_toBottomOf="@+id/stats_user_username" />
 
     <ImageView
-        android:id="@+id/rectangle3"
+        android:id="@+id/stats_user_rectangle3"
         android:layout_width="330dp"
         android:layout_height="130dp"
         android:layout_marginTop="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stats_profile_picture"
+        app:layout_constraintTop_toBottomOf="@+id/stats_user_profile_picture"
         app:srcCompat="@drawable/rectangle_stats" />
 
     <TextView
-        android:id="@+id/num_reserved_gifts"
+        android:id="@+id/stats_user_num_reserved_gifts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -129,12 +118,12 @@
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/rectangle3"
-        app:layout_constraintStart_toStartOf="@+id/rectangle3"
-        app:layout_constraintTop_toTopOf="@+id/rectangle3" />
+        app:layout_constraintEnd_toEndOf="@+id/stats_user_rectangle3"
+        app:layout_constraintStart_toStartOf="@+id/stats_user_rectangle3"
+        app:layout_constraintTop_toTopOf="@+id/stats_user_rectangle3" />
 
     <TextView
-        android:id="@+id/num_lists"
+        android:id="@+id/stats_user_num_lists"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -143,12 +132,12 @@
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/rectangle"
-        app:layout_constraintStart_toStartOf="@+id/rectangle"
-        app:layout_constraintTop_toTopOf="@+id/rectangle" />
+        app:layout_constraintEnd_toEndOf="@+id/stats_user_rectangle"
+        app:layout_constraintStart_toStartOf="@+id/stats_user_rectangle"
+        app:layout_constraintTop_toTopOf="@+id/stats_user_rectangle" />
 
     <TextView
-        android:id="@+id/num_points"
+        android:id="@+id/stats_user_num_points"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -157,12 +146,12 @@
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/rectangle2"
-        app:layout_constraintStart_toStartOf="@+id/rectangle2"
-        app:layout_constraintTop_toTopOf="@+id/rectangle2" />
+        app:layout_constraintEnd_toEndOf="@+id/stats_user_rectangle2"
+        app:layout_constraintStart_toStartOf="@+id/stats_user_rectangle2"
+        app:layout_constraintTop_toTopOf="@+id/stats_user_rectangle2" />
 
     <TextView
-        android:id="@+id/number_gifts"
+        android:id="@+id/stats_user_number_gifts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/abeezee"
@@ -170,14 +159,14 @@
         android:textColor="#FFFFFF"
         android:textSize="32sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/rectangle3"
-        app:layout_constraintEnd_toEndOf="@+id/rectangle3"
-        app:layout_constraintStart_toStartOf="@+id/rectangle3"
-        app:layout_constraintTop_toTopOf="@+id/rectangle3"
+        app:layout_constraintBottom_toBottomOf="@+id/stats_user_rectangle3"
+        app:layout_constraintEnd_toEndOf="@+id/stats_user_rectangle3"
+        app:layout_constraintStart_toStartOf="@+id/stats_user_rectangle3"
+        app:layout_constraintTop_toTopOf="@+id/stats_user_rectangle3"
         app:layout_constraintVertical_bias="0.65" />
 
     <TextView
-        android:id="@+id/number_lists"
+        android:id="@+id/stats_user_number_lists"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/abeezee"
@@ -185,24 +174,24 @@
         android:textColor="#FFFFFF"
         android:textSize="32sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/rectangle"
-        app:layout_constraintEnd_toEndOf="@+id/rectangle"
-        app:layout_constraintStart_toStartOf="@+id/rectangle"
-        app:layout_constraintTop_toTopOf="@+id/rectangle"
+        app:layout_constraintBottom_toBottomOf="@+id/stats_user_rectangle"
+        app:layout_constraintEnd_toEndOf="@+id/stats_user_rectangle"
+        app:layout_constraintStart_toStartOf="@+id/stats_user_rectangle"
+        app:layout_constraintTop_toTopOf="@+id/stats_user_rectangle"
         app:layout_constraintVertical_bias="0.65" />
 
     <TextView
-        android:id="@+id/number_points"
+        android:id="@+id/stats_user_number_points"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/abeezee"
         android:text="0"
         android:textColor="#FFFFFF"
         android:textSize="32sp"
-        app:layout_constraintBottom_toBottomOf="@+id/rectangle2"
-        app:layout_constraintEnd_toEndOf="@+id/rectangle2"
-        app:layout_constraintStart_toStartOf="@+id/rectangle2"
-        app:layout_constraintTop_toTopOf="@+id/rectangle2"
+        app:layout_constraintBottom_toBottomOf="@+id/stats_user_rectangle2"
+        app:layout_constraintEnd_toEndOf="@+id/stats_user_rectangle2"
+        app:layout_constraintStart_toStartOf="@+id/stats_user_rectangle2"
+        app:layout_constraintTop_toTopOf="@+id/stats_user_rectangle2"
         app:layout_constraintVertical_bias="0.65" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
