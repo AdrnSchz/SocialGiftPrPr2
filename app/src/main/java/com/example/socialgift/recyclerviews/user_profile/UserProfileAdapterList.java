@@ -21,8 +21,10 @@ public class UserProfileAdapterList extends Adapter<UserProfileViewHolder> {
     private LayoutInflater layoutInflater;
 
     public UserProfileAdapterList(Context context) {
-        this.layoutInflater = LayoutInflater.from(context);
-        this.data = new ArrayList<>();
+        if (context != null) {
+            this.layoutInflater = LayoutInflater.from(context);
+            this.data = new ArrayList<>();
+        }
     }
 
     @NonNull

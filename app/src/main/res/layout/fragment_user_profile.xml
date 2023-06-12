@@ -26,7 +26,6 @@
         android:id="@+id/user_profile_back"
         android:layout_width="56dp"
         android:layout_height="52dp"
-        android:background="@color/white"
         android:contentDescription="back arrow button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

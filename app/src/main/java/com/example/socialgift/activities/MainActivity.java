@@ -11,6 +11,7 @@ import com.example.socialgift.fragments.GiftFragment;
 import com.example.socialgift.fragments.HomeFragment;
 import com.example.socialgift.fragments.ProfileFragment;
 import com.example.socialgift.fragments.SearchFragment;
+import com.example.socialgift.fragments.StatisticsFragment;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,10 +22,10 @@ public class MainActivity extends AppCompatActivity {
     private static String email;
     private static String password;
     private static String imageLink;
-    private static SearchFragment searchFragment;
-    private static GiftFragment giftFragment;
-    private static ProfileFragment profileFragment;
-    private static HomeFragment homeFragment;
+    private SearchFragment searchFragment;
+    private GiftFragment giftFragment;
+    private ProfileFragment profileFragment;
+    private HomeFragment homeFragment;
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -82,10 +83,6 @@ public class MainActivity extends AppCompatActivity {
 
     public static String getImageLink() {
         return imageLink;
-    }
-
-    public static Fragment getProfileFragment(){
-        return profileFragment;
     }
 
     public static void updateName(String newName){

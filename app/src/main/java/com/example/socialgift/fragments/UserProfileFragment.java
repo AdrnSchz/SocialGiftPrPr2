@@ -61,6 +61,7 @@ public class UserProfileFragment extends Fragment {
             Toast.makeText(getContext(), "Invalid URL", Toast.LENGTH_SHORT).show();
         }
 
+        //TODO: backButton
         backButton.setOnClickListener(v -> {
             thisActivity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view, new SearchFragment()).commit();
         });

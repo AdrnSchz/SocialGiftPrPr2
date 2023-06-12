@@ -1,7 +1,6 @@
 package com.example.socialgift.fragments;
 
 import android.os.Bundle;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,10 +42,10 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         AppCompatActivity thisActivity = (AppCompatActivity) getContext();
 
-        ImageButton settingsButton = view.findViewById(R.id.settings_button);
+        ImageButton settingsButton = view.findViewById(R.id.user_profile_settings_button);
+        ImageButton statsButton = view.findViewById(R.id.user_profile_stats_button);
+        userImage = view.findViewById(R.id.user_profile_picture);
         Button createList = view.findViewById(R.id.create_list_button);
-        SettingsFragment settingsFragment = new SettingsFragment();
-        userImage = view.findViewById(R.id.user_profile_picture_);
         userName = view.findViewById(R.id.user_profile_username);
         userEmail = view.findViewById(R.id.user_profile_email);
         userName.setText(MainActivity.getName());
@@ -54,12 +53,17 @@ public class ProfileFragment extends Fragment {
 
         settingsButton.setOnClickListener(v ->{
             thisActivity.getSupportFragmentManager().beginTransaction().
-                    replace(R.id.fragment_container_view, settingsFragment).commit();
+                    replace(R.id.fragment_container_view, new SettingsFragment()).commit();
         });
 
         createList.setOnClickListener(v -> {
             thisActivity.getSupportFragmentManager().beginTransaction().
                     replace(R.id.fragment_container_view, new CreateListFragment()).commit();
+        });
+
+        statsButton.setOnClickListener(v -> {
+            thisActivity.getSupportFragmentManager().beginTransaction().
+                    replace(R.id.fragment_container_view, new StatisticsFragment()).commit();
         });
 
         APIClient.makeGETRequest(getContext(), "wishlists",
