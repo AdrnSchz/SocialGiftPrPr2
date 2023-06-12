@@ -7,6 +7,7 @@ public class ListComponent {
     private String userImage; // TODO: string?
     private String giftName;
     private String listName;
+    private int id;
 
     public ListComponent(String userName, String userImage, String listName) {
         this.userName = userName;
@@ -16,10 +17,11 @@ public class ListComponent {
         this.userEmail = null;
     }
 
-    public ListComponent(String userName, String userImage, String userEmail, String giftName, String listName) {
-        this(userName, userImage, listName);
+    public ListComponent(String userName, String userImage, String userEmail, int id) {
+        this.userName = userName;
+        this.userImage = userImage;
         this.userEmail = userEmail;
-        this.giftName = giftName;
+        this.id = id;
     }
 
     public ListComponent(String name, int type) {
@@ -50,5 +52,9 @@ public class ListComponent {
 
     public String getListName() {
         return listName;
+    }
+
+    public int getId() {
+        return id;
     }
 }
