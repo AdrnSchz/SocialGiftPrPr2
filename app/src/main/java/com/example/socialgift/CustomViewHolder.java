@@ -2,6 +2,7 @@ package com.example.socialgift;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
@@ -18,11 +19,20 @@ public class CustomViewHolder extends ViewHolder {
     private TextView userName;
     private TextView listName;
 
+    private RelativeLayout relativeLayout;
+
     public CustomViewHolder(View view) {
         super(view);
         userPhoto = view.findViewById(R.id.cvhome_usericon);
         userName = view.findViewById(R.id.cvhome_username);
         listName = view.findViewById(R.id.cvhome_listname);
+        relativeLayout = view.findViewById(R.id.cv_search_layout);
+
+        if (relativeLayout != null) {
+            relativeLayout.setOnClickListener(view1 -> {
+                //TODO go into profile of user when clicked in search
+            });
+        }
     }
 
     void bindData(final ListComponent item) {

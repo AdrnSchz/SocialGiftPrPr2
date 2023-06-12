@@ -17,6 +17,7 @@
     app:cardUseCompatPadding="true">
 
     <RelativeLayout
+        android:id="@+id/cv_search_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -56,7 +57,7 @@
             android:fontFamily="@font/abeezee"
             android:text="pablo68@gmail.com"
             android:textColor="@color/purpleTheme"
-            android:textSize="20sp" />
+            android:textSize="24sp" />
 
     </RelativeLayout>
 
