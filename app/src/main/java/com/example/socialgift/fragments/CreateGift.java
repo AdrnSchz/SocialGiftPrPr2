@@ -18,7 +18,7 @@ import com.example.socialgift.api.APIClient;
 import org.json.JSONObject;
 
 public class CreateGift extends Fragment {
-    private EditText name, image, link, price, category, description;
+    private EditText name, image, link, price, description;
 
     private Button saveButton;
 
@@ -33,7 +33,6 @@ public class CreateGift extends Fragment {
         image = view.findViewById(R.id.create_gift_image);
         link = view.findViewById(R.id.create_gift_link);
         price = view.findViewById(R.id.create_gift_price);
-        category = view.findViewById(R.id.create_gift_category);
         description = view.findViewById(R.id.create_gift_description);
         saveButton = view.findViewById(R.id.create_gift_save);
         backButton = view.findViewById(R.id.create_gift_back);
@@ -49,7 +48,7 @@ public class CreateGift extends Fragment {
             String link = this.link.getText().toString();
             String image = this.image.getText().toString();
             double price = Double.parseDouble(this.price.getText().toString());
-            int category = Integer.parseInt(this.category.getText().toString());
+            int[] category = {};
 
             JSONObject json = new JSONObject();
             try {
@@ -62,7 +61,7 @@ public class CreateGift extends Fragment {
 
                 APIClient.makePOSTRequest(getContext(), APIClient.PRODUCTS_API,"products", json, response -> {
                     thisActivity.getSupportFragmentManager().beginTransaction().
-                            replace(R.id.fragment_container_view, new ProfileFragment()).commit();
+                            replace(R.id.fragment_container_view, new GiftFragment()).commit();
                 }, error -> {
                     error.printStackTrace();
                     Toast.makeText(getContext(), "Error creating gift", Toast.LENGTH_SHORT).show();
