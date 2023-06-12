@@ -1,10 +1,12 @@
 package com.example.socialgift.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -31,9 +33,9 @@ public class SettingsFragment extends Fragment {
         ImageButton backButton = view.findViewById(R.id.settings_arrow_back);
         TextInputEditText userNameField = view.findViewById(R.id.settings_username);
         TextInputEditText emailField = view.findViewById(R.id.settings_email);
-        TextInputEditText imageField = view.findViewById(R.id.settings_photo);
+        TextInputEditText passwordField = view.findViewById(R.id.settings_password);
+        TextInputEditText imageField = view.findViewById(R.id.settings_password);
         Button saveButton = view.findViewById(R.id.settings_save);
-        Button modifyButton = view.findViewById(R.id.settings_modify);
         Button logOutButton = view.findViewById(R.id.settings_logout);
 
         backButton.setOnClickListener(v ->{
@@ -41,9 +43,16 @@ public class SettingsFragment extends Fragment {
                     replace(R.id.fragment_container_view, MainActivity.getProfileFragment()).commit();
         });
 
+        InputMethodManager imm = (InputMethodManager)thisActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
         saveButton.setOnClickListener(v -> {
-            editUser(userNameField.getText().toString(),
-                    emailField.getText().toString(), imageField.getText().toString());
+            imm.hideSoftInputFromWindow(saveButton.getWindowToken(),
+                    InputMethodManager.RESULT_UNCHANGED_SHOWN);
+            editUser(userNameField.getText().toString(), emailField.getText().toString(),
+                    passwordField.getText().toString(), imageField.getText().toString());
+            userNameField.getText().clear();
+            emailField.getText().clear();
+            passwordField.getText().clear();
+            imageField.getText().clear();
         });
 
         logOutButton.setOnClickListener(v -> {
@@ -53,15 +62,27 @@ public class SettingsFragment extends Fragment {
         return view;
     }
 
-    private void editUser(String name, String email, String imageLink) {
+    private void editUser(String name, String email, String password, String imageLink) {
         if (name.matches("")){
             name = MainActivity.getName();
+        }
+        else {
+            MainActivity.updateName(name);
         }
         if (email.matches("")){
             email = MainActivity.getEmail();
         }
+        else {
+            MainActivity.updateEmail(email);
+        }
+        if (password.matches("")){
+            password = MainActivity.getPassword();
+        }
         if (imageLink.matches("")){
             imageLink = MainActivity.getImageLink();
+        }
+        else {
+            MainActivity.updateImageLink(imageLink);
         }
 
         JSONObject requestBody = new JSONObject();

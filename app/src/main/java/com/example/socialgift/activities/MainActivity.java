@@ -60,11 +60,6 @@ public class MainActivity extends AppCompatActivity {
         password = newPassword;
         imageLink = newImageLink;
     }
-
-    public static void updateImageLink(String newImageLink){
-        imageLink = newImageLink;
-    }
-
     public static int getId() {
         return id;
     }
@@ -91,6 +86,18 @@ public class MainActivity extends AppCompatActivity {
 
     public static Fragment getProfileFragment(){
         return profileFragment;
+    }
+
+    public static void updateName(String newName){
+        name = newName;
+    }
+
+    public static void updateEmail(String newEmail){
+        email = newEmail;
+    }
+
+    public static void updateImageLink(String newImageLink){
+        imageLink = newImageLink;
     }
 
     public static void logOut() {

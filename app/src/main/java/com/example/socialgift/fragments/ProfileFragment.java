@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,13 +20,20 @@ import com.example.socialgift.activities.MainActivity;
 import com.example.socialgift.api.APIClient;
 import com.example.socialgift.recyclerviews.user_profile.UserProfileAdapterList;
 import com.example.socialgift.recyclerviews.user_profile.UserProfileListComponent;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+
 public class ProfileFragment extends Fragment {
 
+    private ImageView userImage;
     private TextView userName;
     private TextView userEmail;
 
@@ -36,6 +44,7 @@ public class ProfileFragment extends Fragment {
 
         ImageButton settingsButton = view.findViewById(R.id.settings_button);
         SettingsFragment settingsFragment = new SettingsFragment();
+        userImage = view.findViewById(R.id.user_profile_picture_);
         userName = view.findViewById(R.id.user_profile_username);
         userEmail = view.findViewById(R.id.user_profile_email);
         userName.setText(MainActivity.getName());
@@ -53,7 +62,6 @@ public class ProfileFragment extends Fragment {
                     UserProfileAdapterList adapterList = new UserProfileAdapterList(getContext());
                     recyclerView.setHasFixedSize(true);
                     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                    recyclerView.setAdapter(adapterList);
 
                     try {
                         JSONArray jsonWishlists = new JSONArray(response);
@@ -73,6 +81,7 @@ public class ProfileFragment extends Fragment {
                         e.printStackTrace();
                         Toast.makeText(getContext(), R.string.error_wishlists, Toast.LENGTH_LONG).show();
                     }
+                    recyclerView.setAdapter(adapterList);
                 },
                 error -> {
                     error.printStackTrace();
@@ -87,6 +96,14 @@ public class ProfileFragment extends Fragment {
         super.onResume();
         userName.setText(MainActivity.getName());
         userEmail.setText(MainActivity.getEmail());
+
+        URI uri;
+        try {
+            uri = new URL(MainActivity.getImageLink()).toURI();
+        } catch (MalformedURLException | URISyntaxException e) {
+            return;
+        }
+        Picasso.get().load(String.valueOf(uri)).into(userImage);
     }
 
 }
