@@ -35,20 +35,7 @@ public class AdapterList extends Adapter<CustomViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
-
         holder.bindData(data.get(position));
-        /*
-        holder.binIcon.setOnClickListener(v -> {
-            for (int i = 0; i < data.size(); i++) {
-                if (data.get(i).getTask().equals(holder.task.getText().toString())) {
-                    data.remove(i);
-                    notifyItemRemoved(i);
-                    break;
-                }
-            }
-        });
-
-         */
     }
 
     @Override

@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">SocialGift</string>
     <string name="home_page_title">SocialGift</string>
-    <string name="user_profile_title">My lists</string>
     <string name="fields_empty_error">All fields should be full</string>
     <string name="email_field_error">The email should contain an @</string>
     <string name="confirmation_field_error">The two passwords should match</string>
@@ -12,4 +11,11 @@
     <string name="error_wishlists">Failed to retrieve global wishlists</string>
     <string name="search_title">Search</string>
     <string name="error_search">Failed to retrieve user searched</string>
+    <string name="error_list_process">Failed to process list data</string>
+    <string name="error_list_fetch_product">Failed to fetch gift data</string>
+    <string name="error_list_process_product">Failed to process gift data</string>
+    <string name="error_list_fetch_owner">Failed to fetch list owner</string>
+    <string name="error_list_process_owner">Failed to process list owner</string>
+    <string name="error_list_fetch">Failed to fetch list data</string>
+    <string name="error_list_book">Failed to change reservation status</string>
 </resources>

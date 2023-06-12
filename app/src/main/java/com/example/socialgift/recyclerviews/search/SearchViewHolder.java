@@ -8,7 +8,6 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.socialgift.R;
-import com.example.socialgift.api.APIClient;
 import com.example.socialgift.fragments.SearchFragment;
 import com.example.socialgift.recyclerviews.homepage.ListComponent;
 import com.squareup.picasso.Picasso;

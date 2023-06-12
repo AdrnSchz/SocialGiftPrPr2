@@ -19,12 +19,10 @@ public class CustomViewHolder extends ViewHolder {
     private TextView userName;
     private TextView listName;
 
-    private RelativeLayout relativeLayout;
-
     public CustomViewHolder(View view) {
         super(view);
         userPhoto = view.findViewById(R.id.cvhome_usericon);
-        userName = view.findViewById(R.id.cvhome_username);
+        userName = view.findViewById(R.id.cvhome_name);
         listName = view.findViewById(R.id.cvhome_listname);
 
     }

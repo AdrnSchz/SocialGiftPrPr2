@@ -9,6 +9,7 @@ import android.os.Bundle;
 import com.example.socialgift.R;
 import com.example.socialgift.fragments.GiftFragment;
 import com.example.socialgift.fragments.HomeFragment;
+import com.example.socialgift.fragments.ListFragment;
 import com.example.socialgift.fragments.ProfileFragment;
 import com.example.socialgift.fragments.SearchFragment;
 import com.example.socialgift.fragments.StatisticsFragment;
@@ -39,12 +40,14 @@ public class MainActivity extends AppCompatActivity {
         giftFragment = new GiftFragment();
         profileFragment = new ProfileFragment();
         homeFragment = new HomeFragment();
+        ListFragment f = new ListFragment();
+        f.setId(105);
 
         bar.setOnItemSelectedListener(item -> {
 
             Fragment selection = switch (item.getItemId()) {
                 case R.id.search_page -> searchFragment;
-                case R.id.gift_page -> giftFragment;
+                case R.id.gift_page -> f;
                 case R.id.profile_page -> profileFragment;
                 default -> homeFragment;
             };
