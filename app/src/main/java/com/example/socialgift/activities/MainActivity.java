@@ -40,14 +40,12 @@ public class MainActivity extends AppCompatActivity {
         giftFragment = new GiftFragment();
         profileFragment = new ProfileFragment();
         homeFragment = new HomeFragment();
-        ListFragment f = new ListFragment();
-        f.setId(105);
 
         bar.setOnItemSelectedListener(item -> {
 
             Fragment selection = switch (item.getItemId()) {
                 case R.id.search_page -> searchFragment;
-                case R.id.gift_page -> f;
+                case R.id.gift_page -> giftFragment;
                 case R.id.profile_page -> profileFragment;
                 default -> homeFragment;
             };
