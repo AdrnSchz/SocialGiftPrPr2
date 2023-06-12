@@ -1,14 +1,10 @@
 package com.example.socialgift.api;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -17,9 +13,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.socialgift.R;
 import com.example.socialgift.activities.InitialScreenActivity;
 import com.example.socialgift.activities.MainActivity;
-import com.example.socialgift.fragments.ProfileFragment;
-import com.example.socialgift.recyclerviews.homepage.AdapterList;
-import com.example.socialgift.recyclerviews.homepage.ListComponent;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,7 +22,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class APIClient {
-    private static final String BASE_URL = "https://balandrau.salle.url.edu/i3/socialgift/api/v1/";
+    public static final String PRODUCTS_API = "https://balandrau.salle.url.edu/i3/mercadoexpress/api/v1/";
+    private static final String DEFAULT_API = "https://balandrau.salle.url.edu/i3/socialgift/api/v1/";
     private static String token = "";
 
     public static void createUser(Context context, String name, String surname, String email, String password){
@@ -144,12 +138,14 @@ public class APIClient {
         );
     }
 
-    public static void makeGETRequest(Context context, String endpoint, Response.Listener<String> listener, Response.ErrorListener errorListener) {
+    public static void makeGETRequest(Context context, String baseUrl, String endpoint,
+                                      Response.Listener<String> listener,
+                                      Response.ErrorListener errorListener) {
 
         StringRequest stringRequest =
                 new StringRequest(
                         Request.Method.GET,
-                        BASE_URL + endpoint,
+                        baseUrl + endpoint,
                         listener,
                         errorListener
                 ) {
@@ -164,12 +160,18 @@ public class APIClient {
         VolleySingleton.getInstance(context).addToQueue(stringRequest);
     }
 
+    public static void makeGETRequest(Context context, String endpoint,
+                                      Response.Listener<String> listener,
+                                      Response.ErrorListener errorListener) {
+        makeGETRequest(context, DEFAULT_API, endpoint, listener, errorListener);
+    }
+
     public static void makePOSTRequest(Context context, String endpoint, JSONObject requestBody, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
 
         JsonObjectRequest jsonObjectRequest =
                 new JsonObjectRequest(
                         Request.Method.POST,
-                        BASE_URL + endpoint,
+                        DEFAULT_API + endpoint,
                         requestBody,
                         listener,
                         errorListener
@@ -190,7 +192,7 @@ public class APIClient {
         JsonObjectRequest jsonObjectRequest =
                 new JsonObjectRequest(
                         Request.Method.PUT,
-                        BASE_URL + endpoint,
+                        DEFAULT_API + endpoint,
                         requestBody,
                         listener,
                         errorListener
