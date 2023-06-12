@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView.*;
 
 import com.example.socialgift.R;
+import com.example.socialgift.fragments.SearchFragment;
 import com.example.socialgift.recyclerviews.homepage.ListComponent;
 
 import java.util.ArrayList;
@@ -18,10 +19,12 @@ public class SearchAdapter extends Adapter<SearchViewHolder> {
 
     private final List<ListComponent> data;
     private final LayoutInflater layoutInflater;
+    private final SearchFragment searchFragment;
 
-    public SearchAdapter(Context context) {
+    public SearchAdapter(Context context, SearchFragment searchFragment) {
         this.layoutInflater = LayoutInflater.from(context);
         this.data = new ArrayList<>();
+        this.searchFragment = searchFragment;
     }
 
     @NonNull
@@ -29,7 +32,7 @@ public class SearchAdapter extends Adapter<SearchViewHolder> {
     public SearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int typeView) {
 
         View view = layoutInflater.inflate(R.layout.cardview_search, parent, false);
-        return new SearchViewHolder(view);
+        return new SearchViewHolder(view, searchFragment, data.get(data.size() - 1).getId(), data.get(data.size() - 1).getUserImage());
     }
 
     @Override

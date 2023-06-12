@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,6 +32,9 @@ public class SearchFragment extends Fragment {
     private RecyclerView recyclerView;
 
     private SearchAdapter searchAdapter;
+    public static int id;
+    public static String name, email, photo;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -41,7 +45,8 @@ public class SearchFragment extends Fragment {
         recyclerView = view.findViewById(R.id.search_recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        searchAdapter = new SearchAdapter(getContext());
+        searchAdapter = new SearchAdapter(getContext(), this);
+
 
         searchView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,8 +66,7 @@ public class SearchFragment extends Fragment {
                                                 jsonUser.getString("name"),
                                                 jsonUser.getString("image"),
                                                 jsonUser.getString("email"),
-                                                "void",
-                                                "void"
+                                                jsonUser.getInt("id")
                                         )
                                 );
                             } catch (JSONException e) {
@@ -82,5 +86,16 @@ public class SearchFragment extends Fragment {
         });
 
         return view;
+    }
+
+    public void gotoProfile(String mail, String name, String photo, int id) {
+        this.id = id;
+        this.name = name;
+        this.email = mail;
+        this.photo = photo;
+        AppCompatActivity thisActivity = (AppCompatActivity) getContext();
+
+        thisActivity.getSupportFragmentManager().beginTransaction().
+                replace(R.id.fragment_container_view, new UserProfileFragment()).commit();
     }
 }

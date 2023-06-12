@@ -8,6 +8,8 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.socialgift.R;
+import com.example.socialgift.api.APIClient;
+import com.example.socialgift.fragments.SearchFragment;
 import com.example.socialgift.recyclerviews.homepage.ListComponent;
 import com.squareup.picasso.Picasso;
 
@@ -19,19 +21,21 @@ public class SearchViewHolder extends RecyclerView.ViewHolder {
     private ImageView userPhoto;
     private TextView userName;
     private TextView mail;
-
+    private int id;
+    private String userImage;
     private RelativeLayout relativeLayout;
 
-    public SearchViewHolder(View view) {
+    public SearchViewHolder(View view, SearchFragment searchFragment, int id, String userImage) {
         super(view);
         userPhoto = view.findViewById(R.id.cvsearch_usericon);
         userName = view.findViewById(R.id.cvsearch_username);
         mail = view.findViewById(R.id.cvsearch_mail);
         relativeLayout = view.findViewById(R.id.cv_search_layout);
+        this.id = id;
+        this.userImage = userImage;
 
         relativeLayout.setOnClickListener(view1 -> {
-            System.out.printf("Clicked on %s's with mail: %s\n", userName.getText(), mail.getText());
-            //TODO go into profile of user when clicked in search
+            searchFragment.gotoProfile(mail.getText().toString(), userName.getText().toString(), this.userImage, this.id);
         });
     }
 
