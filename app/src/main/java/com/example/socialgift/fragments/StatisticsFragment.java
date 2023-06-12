@@ -59,7 +59,7 @@ public class StatisticsFragment extends Fragment {
 
         settingsButton.setOnClickListener(v ->{
             thisActivity.getSupportFragmentManager().beginTransaction().
-                    replace(R.id.fragment_container_view, ProfileFragment.getSettingsFragment()).commit();
+                    replace(R.id.fragment_container_view, new SettingsFragment()).commit();
         });
 
         return view;
