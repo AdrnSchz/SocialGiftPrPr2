@@ -1,9 +1,12 @@
 package com.example.socialgift.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.socialgift.R;
+import com.example.socialgift.activities.MainActivity;
 import com.example.socialgift.api.APIClient;
 import com.example.socialgift.recyclerviews.whishlist.WishlistAdapterList;
 import com.example.socialgift.recyclerviews.whishlist.WishlistListComponent;
@@ -32,6 +36,7 @@ public class ListFragment extends Fragment {
 
     private static int id;
     private static Fragment origin;
+    private static boolean canEdit;
     private ImageView backButton;
     private TextView name;
     private TextView createdBy;
@@ -40,7 +45,87 @@ public class ListFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_list, container, false);
+
+        View view;
+        if (canEdit) {
+            view = inflater.inflate(R.layout.fragment_list_editable, container, false);
+
+            Button addButton = view.findViewById(R.id.list_add);
+            addButton.setOnClickListener(v -> {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Choose a product");
+
+                APIClient.makeGETRequest(
+                        getContext(),
+                        APIClient.PRODUCTS_API,
+                        "products",
+                        response -> {
+                            try {
+                                JSONArray products = new JSONArray(response);
+                                String[] productNames = new String[products.length()];
+                                for (int i = 0; i < products.length(); i++) {
+                                    JSONObject product = products.getJSONObject(i);
+                                    productNames[i] = product.getString("name");
+                                }
+
+                                builder.setItems(productNames, (dialog, which) -> {
+                                    try {
+                                        JSONObject product = products.getJSONObject(which);
+
+                                        AlertDialog.Builder priorityBuilder = new AlertDialog.Builder(getContext());
+                                        priorityBuilder.setTitle("Choose a priority");
+
+                                        String[] priorities = {"Low", "Medium", "High", "Very High"};
+                                        priorityBuilder.setItems(priorities, (dialog1, priority) -> {
+                                            try {
+                                                APIClient.makePOSTRequest(
+                                                        getContext(),
+                                                        "gifts",
+                                                        new JSONObject()
+                                                                .put("wishlist_id", id)
+                                                                .put("product_url", APIClient.PRODUCTS_API + "products/" + product.getInt("id"))
+                                                                .put("priority", priority * 25),
+                                                        gift_response -> {
+                                                            try {
+                                                                gift_response.getInt("id"); // Throws exception if operation unsuccessful
+                                                                Toast.makeText(getContext(), R.string.success_add_product, Toast.LENGTH_LONG).show();
+                                                                loadData(view);
+                                                            } catch (JSONException e) {
+                                                                Toast.makeText(getContext(), R.string.error_add_product, Toast.LENGTH_LONG).show();
+                                                            }
+                                                        },
+                                                        error -> {
+                                                            Toast.makeText(getContext(), R.string.error_add_product, Toast.LENGTH_LONG).show();
+                                                        }
+                                                );
+                                            } catch (JSONException e) {
+                                                Toast.makeText(getContext(), R.string.error_add_product, Toast.LENGTH_LONG).show();
+                                            }
+                                        });
+
+                                        AlertDialog priorityDialog = priorityBuilder.create();
+                                        priorityDialog.show();
+
+                                    } catch (JSONException e) {
+                                        Toast.makeText(getContext(), R.string.error_list_process_product, Toast.LENGTH_LONG).show();
+                                    }
+                                });
+
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        },
+                        error -> {
+                            Toast.makeText(getContext(), R.string.error_list_no_products, Toast.LENGTH_LONG).show();
+                        }
+                );
+            });
+        }
+        else {
+            view = inflater.inflate(R.layout.fragment_list, container, false);
+        }
 
         name = view.findViewById(R.id.list_name);
         createdBy = view.findViewById(R.id.list_owner);
@@ -52,6 +137,11 @@ public class ListFragment extends Fragment {
             requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view, origin).commit();
         });
 
+        loadData(view);
+        return view;
+    }
+
+    private void loadData(View view) {
         RecyclerView recyclerView = view.findViewById(R.id.list_recycler_view);
         WishlistAdapterList wishlistAdapterList = new WishlistAdapterList(getContext());
         recyclerView.setHasFixedSize(true);
@@ -108,10 +198,10 @@ public class ListFragment extends Fragment {
 
                                             wishlistAdapterList.addItem(
                                                     new WishlistListComponent(
-                                                        product.getString("name"),
-                                                        gift.getInt("priority"),
-                                                        gift.getInt("booked"),
-                                                        gift.getInt("id")
+                                                            product.getString("name"),
+                                                            gift.getInt("priority"),
+                                                            gift.getInt("booked"),
+                                                            gift.getInt("id")
                                                     )
                                             );
 
@@ -133,12 +223,13 @@ public class ListFragment extends Fragment {
                 },
                 error -> {
                     Toast.makeText(getContext(), R.string.error_list_fetch, Toast.LENGTH_LONG).show();
-                });
-        return view;
+                }
+        );
     }
 
-    public static void setId(int listId) {
+    public static void setList(int listId, int ownerId) {
         id = listId;
+        canEdit = ownerId == MainActivity.getId();
     }
 
     public static void setOrigin(Fragment originFragment) {

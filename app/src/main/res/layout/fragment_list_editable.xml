@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="7dp">
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="132dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="28dp"
+        android:fontFamily="@font/abeezee"
+        android:text="Description"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView6"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/list_owner" />
+
+    <TextView
+        android:id="@+id/list_description"
+        android:layout_width="322dp"
+        android:layout_height="51dp"
+        android:fontFamily="@font/abeezee"
+        android:text="This is a description"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/list_recycler_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.028"
+        app:layout_constraintStart_toStartOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/textView13"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="132dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="53dp"
+        android:layout_marginEnd="40dp"
+        android:fontFamily="@font/abeezee"
+        android:text="Date"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView6"
+        app:layout_constraintTop_toTopOf="@+id/textView6" />
+
+    <TextView
+        android:id="@+id/list_date"
+        android:layout_width="123dp"
+        android:layout_height="21dp"
+        android:layout_marginTop="3dp"
+        android:fontFamily="@font/abeezee"
+        android:text="17/09/2023"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView10"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView10"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+    <TextView
+        android:id="@+id/list_name"
+        android:layout_width="267dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="48dp"
+        android:fontFamily="@font/abeezee"
+        android:text="Christmas"
+        android:textColor="#000000"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.3"
+        app:layout_constraintStart_toEndOf="@+id/list_back"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/list_back"
+        android:layout_width="58dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="43dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back_icon_foreground" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="132dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/abeezee"
+        android:text="Created by"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.193"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/list_back" />
+
+    <TextView
+        android:id="@+id/list_owner"
+        android:layout_width="123dp"
+        android:layout_height="21dp"
+        android:layout_marginTop="3dp"
+        android:fontFamily="@font/abeezee"
+        android:text="useruser1"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView6"
+        app:layout_constraintHorizontal_bias="0.18"
+        app:layout_constraintStart_toStartOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_recycler_view"
+        android:layout_width="413dp"
+        android:layout_height="414dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/list_add"
+        android:layout_width="322dp"
+        android:layout_height="48dp"
+        android:text="Add gift"
+        app:layout_constraintEnd_toEndOf="@+id/list_description"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/list_description"
+        app:layout_constraintTop_toBottomOf="@+id/list_description" />
+</androidx.constraintlayout.widget.ConstraintLayout>
