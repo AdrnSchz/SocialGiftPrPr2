@@ -16,6 +16,7 @@ import com.example.socialgift.recyclerviews.homepage.AdapterList;
 import com.example.socialgift.recyclerviews.homepage.ListComponent;
 import com.example.socialgift.R;
 import com.example.socialgift.api.APIClient;
+import com.example.socialgift.recyclerviews.search.SearchAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,7 +30,7 @@ public class SearchFragment extends Fragment {
 
     private RecyclerView recyclerView;
 
-    private AdapterList adapterList;
+    private SearchAdapter searchAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -40,12 +41,12 @@ public class SearchFragment extends Fragment {
         recyclerView = view.findViewById(R.id.search_recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapterList = new AdapterList(getContext());
+        searchAdapter = new SearchAdapter(getContext());
 
         searchView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recyclerView.removeAllViews();
+                searchAdapter.clear();
                 String endpoint = "users/search?s=" + searchInput.getText().toString();
                 APIClient.makeGETRequest(getContext(), endpoint, response -> {
                     try {
@@ -55,20 +56,20 @@ public class SearchFragment extends Fragment {
                             JSONObject jsonUser = jsonUsers.getJSONObject(i);
 
                             try {
-                                adapterList.addItem(
+                                searchAdapter.addItem(
                                         new ListComponent(
                                                 jsonUser.getString("name"),
                                                 jsonUser.getString("image"),
                                                 jsonUser.getString("email"),
-                                                null,
-                                                null
+                                                "void",
+                                                "void"
                                         )
                                 );
                             } catch (JSONException e) {
                                 throw new RuntimeException(e);
                             }
 
-                            recyclerView.setAdapter(adapterList);
+                            recyclerView.setAdapter(searchAdapter);
                         }
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
