@@ -32,6 +32,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class UserProfileFragment extends Fragment {
 
@@ -61,13 +62,13 @@ public class UserProfileFragment extends Fragment {
             Toast.makeText(getContext(), "Invalid URL", Toast.LENGTH_SHORT).show();
         }
 
-        //TODO: backButton
         backButton.setOnClickListener(v -> {
-            thisActivity.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view, new SearchFragment()).commit();
+            thisActivity.getSupportFragmentManager().beginTransaction().
+                    replace(R.id.fragment_container_view, new SearchFragment()).commit();
         });
 
         statsButton.setOnClickListener(v -> {
-            //TODO statsButton getActivity().getSupportFragmentManager().beginTransaction().replace(view.getId(), new UserStatisticsFragment()).commit();
+            updateStats(thisActivity);
         });
 
         recyclerView = view.findViewById(R.id.user_profile_recycler_view);
@@ -105,5 +106,52 @@ public class UserProfileFragment extends Fragment {
         );
 
         return view;
+    }
+
+    public void updateStats(AppCompatActivity thisActivity){
+        AtomicInteger gifts = new AtomicInteger();
+        AtomicInteger lists = new AtomicInteger();
+        int userId = SearchFragment.id;
+        String endPoint = "users/" + userId + "/gifts/reserved";
+
+        APIClient.makeGETRequest(getContext(), endPoint,
+                response -> {
+                    try {
+                        JSONArray jsonArray = new JSONArray(response);
+                        gifts.set(jsonArray.length());
+                    }
+                    catch (JSONException e){
+                        gifts.set(0);
+                    }
+                },
+                error -> {
+                    gifts.set(0);
+                });
+
+        endPoint = "users/" + userId + "/wishlists";
+        APIClient.makeGETRequest(getContext(), endPoint,
+                response -> {
+                    try {
+                        JSONArray jsonArray = new JSONArray(response);
+                        lists.set(jsonArray.length());
+
+                        UserStatisticsFragment userStatisticsFragment = new UserStatisticsFragment();
+                        userStatisticsFragment.numberOfGifts = Integer.toString(gifts.intValue());
+                        userStatisticsFragment.numberOfLists = Integer.toString(lists.intValue());
+                        userStatisticsFragment.numberOfPoints = Integer.toString(
+                                gifts.intValue() * 5 + lists.intValue() * 20);
+
+                        thisActivity.getSupportFragmentManager().beginTransaction().
+                                replace(R.id.fragment_container_view, userStatisticsFragment).commit();
+                    }
+                    catch (JSONException e){
+                        lists.set(0);
+                        Toast.makeText(thisActivity, "Error generating stats", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                error -> {
+                    lists.set(0);
+                    Toast.makeText(thisActivity, "Error generating stats", Toast.LENGTH_SHORT).show();
+                });
     }
 }

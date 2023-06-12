@@ -26,7 +26,8 @@ import java.net.URL;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class StatisticsFragment extends Fragment {
+public class UserStatisticsFragment extends Fragment {
+
 
     private ImageView userImage;
     private TextView userName;
@@ -40,26 +41,20 @@ public class StatisticsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_statistics, container, false);
+        View view = inflater.inflate(R.layout.fragment_user_statistics, container, false);
         AppCompatActivity thisActivity = (AppCompatActivity) getContext();
 
-        ImageButton backToListsButton = view.findViewById(R.id.stats_tolist_button);
-        ImageButton settingsButton = view.findViewById(R.id.stats_settings_button);
-        userImage = view.findViewById(R.id.stats_profile_picture);
-        userName = view.findViewById(R.id.stats_username);
-        userEmail = view.findViewById(R.id.stats_email);
-        numGifts = view.findViewById(R.id.number_gifts);
-        numLists = view.findViewById(R.id.number_lists);
-        numPoints = view.findViewById(R.id.number_points);
+        ImageButton backToListsButton = view.findViewById(R.id.stats_user_tolist_button);
+        userImage = view.findViewById(R.id.stats_user_profile_picture);
+        userName = view.findViewById(R.id.stats_user_username);
+        userEmail = view.findViewById(R.id.stats_user_email);
+        numGifts = view.findViewById(R.id.stats_user_number_gifts);
+        numLists = view.findViewById(R.id.stats_user_number_lists);
+        numPoints = view.findViewById(R.id.stats_user_number_points);
 
         backToListsButton.setOnClickListener(v ->{
             thisActivity.getSupportFragmentManager().beginTransaction().
-                    replace(R.id.fragment_container_view, new ProfileFragment()).commit();
-        });
-
-        settingsButton.setOnClickListener(v ->{
-            thisActivity.getSupportFragmentManager().beginTransaction().
-                    replace(R.id.fragment_container_view, new SettingsFragment()).commit();
+                    replace(R.id.fragment_container_view, new UserProfileFragment()).commit();
         });
 
         return view;
@@ -68,14 +63,14 @@ public class StatisticsFragment extends Fragment {
     @Override
     public void onResume(){
         super.onResume();
-        userName.setText(MainActivity.getName());
-        userEmail.setText(MainActivity.getEmail());
+        userName.setText(SearchFragment.name);
+        userEmail.setText(SearchFragment.email);
         numGifts.setText(String.format(numberOfGifts));
         numLists.setText(String.format(numberOfLists));
         numPoints.setText(String.format(numberOfPoints));
         URI uri;
         try {
-            uri = new URL(MainActivity.getImageLink()).toURI();
+            uri = new URL(SearchFragment.photo).toURI();
         } catch (MalformedURLException | URISyntaxException e) {
             return;
         }
