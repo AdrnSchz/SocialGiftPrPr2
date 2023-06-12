@@ -166,12 +166,12 @@ public class APIClient {
         makeGETRequest(context, DEFAULT_API, endpoint, listener, errorListener);
     }
 
-    public static void makePOSTRequest(Context context, String endpoint, JSONObject requestBody, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
+    public static void makePOSTRequest(Context context, String baseUrl, String endpoint, JSONObject requestBody, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
 
         JsonObjectRequest jsonObjectRequest =
                 new JsonObjectRequest(
                         Request.Method.POST,
-                        DEFAULT_API + endpoint,
+                        baseUrl + endpoint,
                         requestBody,
                         listener,
                         errorListener
@@ -187,6 +187,9 @@ public class APIClient {
         VolleySingleton.getInstance(context).addToQueue(jsonObjectRequest);
     }
 
+    public static void makePOSTRequest(Context context, String endpoint, JSONObject requestBody, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
+        makePOSTRequest(context, DEFAULT_API, endpoint, requestBody, listener, errorListener);
+    }
     public static void makePUTRequest(Context context, String endpoint, JSONObject requestBody, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
 
         JsonObjectRequest jsonObjectRequest =
