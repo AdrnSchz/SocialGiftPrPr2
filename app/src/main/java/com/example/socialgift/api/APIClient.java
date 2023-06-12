@@ -7,6 +7,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -15,7 +17,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.socialgift.R;
 import com.example.socialgift.activities.InitialScreenActivity;
 import com.example.socialgift.activities.MainActivity;
+import com.example.socialgift.recyclerviews.homepage.AdapterList;
+import com.example.socialgift.recyclerviews.homepage.ListComponent;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -59,6 +64,7 @@ public class APIClient {
                         Toast.makeText(appCompatActivity, R.string.error_user_creation, Toast.LENGTH_LONG).show();
                     }
 
+
                 },
                 error -> {
                     if (error.networkResponse.statusCode == 409){
@@ -93,7 +99,9 @@ public class APIClient {
                         gotoMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         appCompatActivity.startActivity(gotoMain);
                         appCompatActivity.overridePendingTransition (0, 0);
-                    } catch (JSONException e) {
+
+                    }
+                    catch (JSONException e) {
                         Toast.makeText(appCompatActivity, R.string.error_login, Toast.LENGTH_LONG).show();
                     }
                 },
@@ -104,8 +112,35 @@ public class APIClient {
         );
     }
 
-    private static void updateUser(AppCompatActivity appCompatActivity, String email) {
+    private static void updateUser(Context context, String email) {
+        String endpoint = "users/search?s=" + email;
+        APIClient.makeGETRequest(context, endpoint,
+                response -> {
+                    try {
+                        JSONArray jsonArray = new JSONArray(response);
+                        JSONObject jsonObject = new JSONObject();
+                        int i;
+                        for (i = 0; i < jsonArray.length(); i++){
+                            if (jsonArray.getJSONObject(i).getString("email").matches(email)){
+                                jsonObject = jsonArray.getJSONObject(i);
+                                break;
+                            }
+                        }
+                        int id = Integer.parseInt(jsonObject.getString("id"));
+                        String name = jsonObject.getString("name");
+                        String lastName = jsonObject.getString("last_name");
+                        String imageLink = jsonObject.getString("image");
 
+                        MainActivity.updateUser(id, name, lastName, email, imageLink);
+                    }
+                    catch (JSONException e) {
+                        MainActivity.updateUser(-1, "", "", "", "");
+                    }
+                },
+                error -> {
+                    MainActivity.updateUser(-1, "", "", "", "");
+                }
+        );
     }
 
     public static void makeGETRequest(Context context, String endpoint, Response.Listener<String> listener, Response.ErrorListener errorListener) {
