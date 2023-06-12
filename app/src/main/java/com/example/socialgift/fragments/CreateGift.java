@@ -48,7 +48,7 @@ public class CreateGift extends Fragment {
             String description = this.description.getText().toString();
             String link = this.link.getText().toString();
             String image = this.image.getText().toString();
-            float price = Float.parseFloat(this.price.getText().toString());
+            double price = Double.parseDouble(this.price.getText().toString());
             int category = Integer.parseInt(this.category.getText().toString());
 
             JSONObject json = new JSONObject();
