@@ -34,7 +34,7 @@ public class SettingsFragment extends Fragment {
         TextInputEditText userNameField = view.findViewById(R.id.settings_username);
         TextInputEditText emailField = view.findViewById(R.id.settings_email);
         TextInputEditText passwordField = view.findViewById(R.id.settings_password);
-        TextInputEditText imageField = view.findViewById(R.id.settings_password);
+        TextInputEditText imageField = view.findViewById(R.id.settings_photo);
         Button saveButton = view.findViewById(R.id.settings_save);
         Button logOutButton = view.findViewById(R.id.settings_logout);
 

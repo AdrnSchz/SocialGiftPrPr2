@@ -96,7 +96,6 @@ public class ProfileFragment extends Fragment {
         super.onResume();
         userName.setText(MainActivity.getName());
         userEmail.setText(MainActivity.getEmail());
-
         URI uri;
         try {
             uri = new URL(MainActivity.getImageLink()).toURI();
