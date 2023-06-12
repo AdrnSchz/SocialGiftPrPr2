@@ -98,6 +98,7 @@ public class APIClient {
                     }
                 },
                 error -> {
+                    System.out.println(error.getMessage());
                     Toast.makeText(appCompatActivity, R.string.error_login, Toast.LENGTH_LONG).show();
                 }
         );

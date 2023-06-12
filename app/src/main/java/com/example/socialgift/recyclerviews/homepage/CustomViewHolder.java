@@ -1,5 +1,4 @@
-package com.example.socialgift;
-
+package com.example.socialgift.recyclerviews.homepage;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -7,6 +6,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
+import com.example.socialgift.R;
 import com.squareup.picasso.Picasso;
 
 import java.net.MalformedURLException;

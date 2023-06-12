@@ -33,7 +33,7 @@
             android:id="@+id/search_icon"
             android:layout_width="37dp"
             android:layout_height="match_parent"
-            android:src="@drawable/baseline_search_24" />
+            android:src="@drawable/search_icon_foreground" />
 
         <EditText
             android:id="@+id/search_bar"

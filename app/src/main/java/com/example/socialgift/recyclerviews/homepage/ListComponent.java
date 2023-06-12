@@ -1,4 +1,4 @@
-package com.example.socialgift;
+package com.example.socialgift.recyclerviews.homepage;
 
 public class ListComponent {
 
