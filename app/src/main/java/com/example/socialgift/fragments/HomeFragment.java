@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.socialgift.AdapterList;
-import com.example.socialgift.ListComponent;
+import com.example.socialgift.recyclerviews.homepage.AdapterList;
+import com.example.socialgift.recyclerviews.homepage.ListComponent;
 import com.example.socialgift.R;
 import com.example.socialgift.api.APIClient;
 import com.example.socialgift.entities.User;
@@ -44,7 +44,6 @@ public class HomeFragment extends Fragment {
                             JSONObject jsonWishlist = jsonWishlists.getJSONObject(i);
 
                             getUser(jsonWishlist.getInt("user_id"), user -> {
-
                                 if (user == null) {
                                     return;
                                 }
