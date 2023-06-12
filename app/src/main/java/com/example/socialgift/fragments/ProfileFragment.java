@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,7 +36,6 @@ public class ProfileFragment extends Fragment {
     private ImageView userImage;
     private TextView userName;
     private TextView userEmail;
-    private static SettingsFragment settingsFragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,9 +44,8 @@ public class ProfileFragment extends Fragment {
 
         ImageButton settingsButton = view.findViewById(R.id.user_profile_settings_button);
         ImageButton statsButton = view.findViewById(R.id.user_profile_stats_button);
-        StatisticsFragment statisticsFragment = new StatisticsFragment();
-        settingsFragment = new SettingsFragment();
         userImage = view.findViewById(R.id.user_profile_picture);
+        Button createList = view.findViewById(R.id.create_list_button);
         userName = view.findViewById(R.id.user_profile_username);
         userEmail = view.findViewById(R.id.user_profile_email);
         userName.setText(MainActivity.getName());
@@ -54,12 +53,17 @@ public class ProfileFragment extends Fragment {
 
         settingsButton.setOnClickListener(v ->{
             thisActivity.getSupportFragmentManager().beginTransaction().
-                    replace(R.id.fragment_container_view, settingsFragment).commit();
+                    replace(R.id.fragment_container_view, new SettingsFragment()).commit();
+        });
+
+        createList.setOnClickListener(v -> {
+            thisActivity.getSupportFragmentManager().beginTransaction().
+                    replace(R.id.fragment_container_view, new CreateListFragment()).commit();
         });
 
         statsButton.setOnClickListener(v -> {
             thisActivity.getSupportFragmentManager().beginTransaction().
-                    replace(R.id.fragment_container_view, statisticsFragment).commit();
+                    replace(R.id.fragment_container_view, new StatisticsFragment()).commit();
         });
 
         APIClient.makeGETRequest(getContext(), "wishlists",
@@ -112,7 +116,4 @@ public class ProfileFragment extends Fragment {
         Picasso.get().load(String.valueOf(uri)).into(userImage);
     }
 
-    public static Fragment getSettingsFragment(){
-        return settingsFragment;
-    }
 }
