@@ -18,4 +18,7 @@
     <string name="error_list_process_owner">Failed to process list owner</string>
     <string name="error_list_fetch">Failed to fetch list data</string>
     <string name="error_list_book">Failed to change reservation status</string>
+    <string name="error_list_no_products">There are no products available</string>
+    <string name="error_add_product">Failed to add product</string>
+    <string name="success_add_product">Successfully added product</string>
 </resources>
