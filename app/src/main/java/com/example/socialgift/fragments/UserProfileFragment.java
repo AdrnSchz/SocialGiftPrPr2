@@ -36,7 +36,6 @@ import java.net.URL;
 public class UserProfileFragment extends Fragment {
 
     private ImageButton backButton, statsButton;
-    private CheckBox followingBox;
     private TextView userName, userEmail;
     private ImageView userImage;
     private RecyclerView recyclerView;
@@ -48,7 +47,6 @@ public class UserProfileFragment extends Fragment {
 
         backButton = view.findViewById(R.id.user_profile_back);
         statsButton = view.findViewById(R.id.user_statistics_button);
-        followingBox = view.findViewById(R.id.following_box);
         userName = view.findViewById(R.id.username_text);
         userEmail = view.findViewById(R.id.email_text);
         userImage = view.findViewById(R.id.user_profile_picture_);
@@ -72,14 +70,6 @@ public class UserProfileFragment extends Fragment {
             //TODO statsButton getActivity().getSupportFragmentManager().beginTransaction().replace(view.getId(), new UserStatisticsFragment()).commit();
         });
 
-        //TODO checkBox
-        followingBox.setOnClickListener(v -> {
-            if (followingBox.isChecked()) {
-                Toast.makeText(getContext(), "Following", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(getContext(), "Unfollowing", Toast.LENGTH_SHORT).show();
-            }
-        });
         recyclerView = view.findViewById(R.id.user_profile_recycler_view);
         adapterList = new NoBinListAdapter(getContext());
         recyclerView.setHasFixedSize(true);

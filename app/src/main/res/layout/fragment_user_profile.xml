@@ -8,8 +8,8 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/user_profile_picture_"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="98dp"
+        android:layout_height="94dp"
         android:layout_gravity="center"
         android:layout_marginTop="24dp"
         android:contentDescription="@string/app_name"
@@ -39,60 +39,46 @@
         android:id="@+id/user_statistics_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="12dp"
         android:background="@color/white"
         android:contentDescription="button of statistics"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/following_box"
-        app:layout_constraintTop_toTopOf="@+id/following_box"
-        app:srcCompat="@drawable/statistics" />
-
-    <CheckBox
-        android:id="@+id/following_box"
-        android:layout_width="51dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="8dp"
-        android:background="@color/white"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/username_text"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.135" />
+        app:layout_constraintTop_toTopOf="@+id/username_text"
+        app:srcCompat="@drawable/statistics" />
 
     <TextView
         android:id="@+id/username_text"
-        android:layout_width="191dp"
-        android:layout_height="26dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="5dp"
+        android:layout_width="201dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/abeezee"
         android:text="Username"
         android:textColor="#000000"
-        android:textSize="18sp"
+        android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/user_profile_picture_"
         app:layout_constraintTop_toTopOf="@+id/user_profile_picture_" />
 
     <TextView
         android:id="@+id/email_text"
-        android:layout_width="191dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="12dp"
+        android:layout_width="202dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="16dp"
         android:text="useremail"
-        android:textSize="14sp"
+        android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/user_profile_picture_"
         app:layout_constraintTop_toBottomOf="@+id/username_text" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/user_profile_recycler_view"
-        android:layout_width="407dp"
-        android:layout_height="568dp"
+        android:layout_width="413dp"
+        android:layout_height="532dp"
         android:layout_marginTop="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.571"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email_text"
-        app:layout_constraintVertical_bias="0.021" />
+        app:layout_constraintVertical_bias="1.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
