@@ -1,7 +1,6 @@
 package com.example.socialgift.fragments;
 
 import android.os.Bundle;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,15 +35,18 @@ public class ProfileFragment extends Fragment {
     private ImageView userImage;
     private TextView userName;
     private TextView userEmail;
+    private static SettingsFragment settingsFragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         AppCompatActivity thisActivity = (AppCompatActivity) getContext();
 
-        ImageButton settingsButton = view.findViewById(R.id.settings_button);
-        SettingsFragment settingsFragment = new SettingsFragment();
-        userImage = view.findViewById(R.id.user_profile_picture_);
+        ImageButton settingsButton = view.findViewById(R.id.user_profile_settings_button);
+        ImageButton statsButton = view.findViewById(R.id.user_profile_stats_button);
+        StatisticsFragment statisticsFragment = new StatisticsFragment();
+        settingsFragment = new SettingsFragment();
+        userImage = view.findViewById(R.id.user_profile_picture);
         userName = view.findViewById(R.id.user_profile_username);
         userEmail = view.findViewById(R.id.user_profile_email);
         userName.setText(MainActivity.getName());
@@ -53,6 +55,11 @@ public class ProfileFragment extends Fragment {
         settingsButton.setOnClickListener(v ->{
             thisActivity.getSupportFragmentManager().beginTransaction().
                     replace(R.id.fragment_container_view, settingsFragment).commit();
+        });
+
+        statsButton.setOnClickListener(v -> {
+            thisActivity.getSupportFragmentManager().beginTransaction().
+                    replace(R.id.fragment_container_view, statisticsFragment).commit();
         });
 
         APIClient.makeGETRequest(getContext(), "wishlists",
@@ -105,4 +112,7 @@ public class ProfileFragment extends Fragment {
         Picasso.get().load(String.valueOf(uri)).into(userImage);
     }
 
+    public static Fragment getSettingsFragment(){
+        return settingsFragment;
+    }
 }
