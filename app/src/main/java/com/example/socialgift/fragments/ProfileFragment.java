@@ -5,6 +5,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -43,6 +44,7 @@ public class ProfileFragment extends Fragment {
         AppCompatActivity thisActivity = (AppCompatActivity) getContext();
 
         ImageButton settingsButton = view.findViewById(R.id.settings_button);
+        Button createList = view.findViewById(R.id.create_list_button);
         SettingsFragment settingsFragment = new SettingsFragment();
         userImage = view.findViewById(R.id.user_profile_picture_);
         userName = view.findViewById(R.id.user_profile_username);
@@ -53,6 +55,11 @@ public class ProfileFragment extends Fragment {
         settingsButton.setOnClickListener(v ->{
             thisActivity.getSupportFragmentManager().beginTransaction().
                     replace(R.id.fragment_container_view, settingsFragment).commit();
+        });
+
+        createList.setOnClickListener(v -> {
+            thisActivity.getSupportFragmentManager().beginTransaction().
+                    replace(R.id.fragment_container_view, new CreateListFragment()).commit();
         });
 
         APIClient.makeGETRequest(getContext(), "wishlists",
