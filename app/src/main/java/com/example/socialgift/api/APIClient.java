@@ -210,4 +210,24 @@ public class APIClient {
 
         VolleySingleton.getInstance(context).addToQueue(jsonObjectRequest);
     }
+
+    public static void makeDELETERequest(Context context, String endpoint, Response.Listener<String> listener, Response.ErrorListener errorListener) {
+
+        StringRequest stringRequest =
+                new StringRequest(
+                        Request.Method.DELETE,
+                        DEFAULT_API + endpoint,
+                        listener,
+                        errorListener
+                ) {
+                    @Override
+                    public Map<String, String> getHeaders() {
+                        Map<String, String> headers = new HashMap<>();
+                        headers.put("Authorization", "Bearer " + token);
+                        return headers;
+                    }
+                };
+
+        VolleySingleton.getInstance(context).addToQueue(stringRequest);
+    }
 }
