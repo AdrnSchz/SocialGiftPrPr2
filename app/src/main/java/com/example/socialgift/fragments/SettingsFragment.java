@@ -40,7 +40,7 @@ public class SettingsFragment extends Fragment {
 
         backButton.setOnClickListener(v ->{
             thisActivity.getSupportFragmentManager().beginTransaction().
-                    replace(R.id.fragment_container_view, MainActivity.getProfileFragment()).commit();
+                    replace(R.id.fragment_container_view, new ProfileFragment()).commit();
         });
 
         InputMethodManager imm = (InputMethodManager)thisActivity.getSystemService(Context.INPUT_METHOD_SERVICE);

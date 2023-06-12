@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/user_profile_picture_"
+        android:id="@+id/user_profile_picture"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
@@ -16,13 +16,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.099"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settings_title"
+        app:layout_constraintTop_toBottomOf="@+id/user_profile_title"
         app:shapeAppearanceOverlay="@style/circleImageView"
         app:strokeWidth="10dp"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/settings_title"
+        android:id="@+id/user_profile_title"
         android:layout_width="157dp"
         android:layout_height="45dp"
         android:fontFamily="@font/abeezee"
@@ -38,7 +38,7 @@
         app:layout_constraintVertical_bias="0.060000002" />
 
     <ImageButton
-        android:id="@+id/settings_button"
+        android:id="@+id/user_profile_settings_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@color/white"
@@ -47,13 +47,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.87"
-        app:layout_constraintStart_toEndOf="@+id/settings_title"
+        app:layout_constraintStart_toEndOf="@+id/user_profile_title"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.062"
         app:srcCompat="@drawable/settings_wheel" />
 
     <ImageButton
-        android:id="@+id/statistics_button"
+        android:id="@+id/user_profile_stats_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginEnd="12dp"
@@ -61,7 +61,7 @@
         android:scaleType="fitCenter"
         android:contentDescription="button of statistics"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/settings_button"
+        app:layout_constraintEnd_toStartOf="@+id/user_profile_settings_button"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.060000002"
         app:srcCompat="@drawable/statistics" />
@@ -76,8 +76,8 @@
         android:text="Username"
         android:textColor="#000000"
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/user_profile_picture_"
-        app:layout_constraintTop_toTopOf="@+id/user_profile_picture_" />
+        app:layout_constraintStart_toEndOf="@+id/user_profile_picture"
+        app:layout_constraintTop_toTopOf="@+id/user_profile_picture" />
 
     <TextView
         android:id="@+id/user_profile_email"
@@ -86,7 +86,7 @@
         android:layout_marginStart="12dp"
         android:text="useremail"
         android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/user_profile_picture_"
+        app:layout_constraintStart_toEndOf="@+id/user_profile_picture"
         app:layout_constraintTop_toBottomOf="@+id/user_profile_username" />
 
     <ImageView

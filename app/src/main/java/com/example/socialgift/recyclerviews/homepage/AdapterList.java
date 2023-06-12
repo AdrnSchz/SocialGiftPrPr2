@@ -15,12 +15,14 @@ import java.util.List;
 
 public class AdapterList extends Adapter<CustomViewHolder> {
 
-    private final List<ListComponent> data;
-    private final LayoutInflater layoutInflater;
+    private List<ListComponent> data;
+    private LayoutInflater layoutInflater;
 
     public AdapterList(Context context) {
-        this.layoutInflater = LayoutInflater.from(context);
-        this.data = new ArrayList<>();
+        if (context != null) {
+            this.layoutInflater = LayoutInflater.from(context);
+            this.data = new ArrayList<>();
+        }
     }
 
     @NonNull
