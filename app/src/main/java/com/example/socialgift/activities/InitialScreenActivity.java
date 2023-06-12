@@ -14,6 +14,7 @@ public class InitialScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial_screen);
+        MainActivity.logOut();
 
         Button signUpButton = findViewById(R.id.button_to_signup);
         Button loginButton = findViewById(R.id.button_to_login);

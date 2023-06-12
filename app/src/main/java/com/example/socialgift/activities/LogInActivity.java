@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.socialgift.R;
 import com.example.socialgift.api.APIClient;
+import com.example.socialgift.fragments.ProfileFragment;
 
 public class LogInActivity extends AppCompatActivity {
     @Override

@@ -17,6 +17,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.socialgift.R;
 import com.example.socialgift.activities.InitialScreenActivity;
 import com.example.socialgift.activities.MainActivity;
+import com.example.socialgift.fragments.ProfileFragment;
 import com.example.socialgift.recyclerviews.homepage.AdapterList;
 import com.example.socialgift.recyclerviews.homepage.ListComponent;
 
@@ -92,7 +93,7 @@ public class APIClient {
                 response -> {
                     try {
                         token = response.getString("accessToken");
-                        updateUser(appCompatActivity, email);
+                        updateUser(appCompatActivity, email, password);
 
                         Intent gotoMain = new Intent(appCompatActivity, MainActivity.class);
                         gotoMain.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -112,7 +113,7 @@ public class APIClient {
         );
     }
 
-    private static void updateUser(Context context, String email) {
+    private static void updateUser(Context context, String email, String password) {
         String endpoint = "users/search?s=" + email;
         APIClient.makeGETRequest(context, endpoint,
                 response -> {
@@ -131,14 +132,14 @@ public class APIClient {
                         String lastName = jsonObject.getString("last_name");
                         String imageLink = jsonObject.getString("image");
 
-                        MainActivity.updateUser(id, name, lastName, email, imageLink);
+                        MainActivity.updateUser(id, name, lastName, email, password, imageLink);
                     }
                     catch (JSONException e) {
-                        MainActivity.updateUser(-1, "", "", "", "");
+                        MainActivity.updateUser(-1, "", "", "", "", "");
                     }
                 },
                 error -> {
-                    MainActivity.updateUser(-1, "", "", "", "");
+                    MainActivity.updateUser(-1, "", "", "", "", "");
                 }
         );
     }
@@ -168,6 +169,27 @@ public class APIClient {
         JsonObjectRequest jsonObjectRequest =
                 new JsonObjectRequest(
                         Request.Method.POST,
+                        BASE_URL + endpoint,
+                        requestBody,
+                        listener,
+                        errorListener
+                ) {
+                    @Override
+                    public Map<String, String> getHeaders() {
+                        Map<String, String> headers = new HashMap<>();
+                        headers.put("Authorization", "Bearer " + token);
+                        return headers;
+                    }
+                };
+
+        VolleySingleton.getInstance(context).addToQueue(jsonObjectRequest);
+    }
+
+    public static void makePUTRequest(Context context, String endpoint, JSONObject requestBody, Response.Listener<JSONObject> listener, Response.ErrorListener errorListener) {
+
+        JsonObjectRequest jsonObjectRequest =
+                new JsonObjectRequest(
+                        Request.Method.PUT,
                         BASE_URL + endpoint,
                         requestBody,
                         listener,

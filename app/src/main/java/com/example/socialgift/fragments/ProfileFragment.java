@@ -1,21 +1,23 @@
 package com.example.socialgift.fragments;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.socialgift.R;
+import com.example.socialgift.activities.MainActivity;
 import com.example.socialgift.api.APIClient;
-import com.example.socialgift.recyclerviews.homepage.ListComponent;
 import com.example.socialgift.recyclerviews.user_profile.UserProfileAdapterList;
-import com.example.socialgift.entities.User;
 import com.example.socialgift.recyclerviews.user_profile.UserProfileListComponent;
 
 import org.json.JSONArray;
@@ -24,9 +26,25 @@ import org.json.JSONObject;
 
 public class ProfileFragment extends Fragment {
 
+    private TextView userName;
+    private TextView userEmail;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        AppCompatActivity thisActivity = (AppCompatActivity) getContext();
+
+        ImageButton settingsButton = view.findViewById(R.id.settings_button);
+        SettingsFragment settingsFragment = new SettingsFragment();
+        userName = view.findViewById(R.id.user_profile_username);
+        userEmail = view.findViewById(R.id.user_profile_email);
+        userName.setText(MainActivity.getName());
+        userEmail.setText(MainActivity.getEmail());
+
+        settingsButton.setOnClickListener(v ->{
+            thisActivity.getSupportFragmentManager().beginTransaction().
+                    replace(R.id.fragment_container_view, settingsFragment).commit();
+        });
 
         APIClient.makeGETRequest(getContext(), "wishlists",
                 response -> {
@@ -41,13 +59,15 @@ public class ProfileFragment extends Fragment {
                         JSONArray jsonWishlists = new JSONArray(response);
 
                         for (int i = 0; i < jsonWishlists.length(); i++) {
-
                             JSONObject jsonWishlist = jsonWishlists.getJSONObject(i);
-                            adapterList.addUserProfileItem(
-                                    new UserProfileListComponent(
-                                            jsonWishlist.getString("name")
-                                    )
-                            );
+                            int userId = jsonWishlist.getInt("user_id");
+                            if (userId == MainActivity.getId()) {
+                                adapterList.addUserProfileItem(
+                                        new UserProfileListComponent(
+                                                jsonWishlist.getString("name")
+                                        )
+                                );
+                            }
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -61,4 +81,12 @@ public class ProfileFragment extends Fragment {
         );
         return view;
     }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        userName.setText(MainActivity.getName());
+        userEmail.setText(MainActivity.getEmail());
+    }
+
 }

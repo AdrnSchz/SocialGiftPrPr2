@@ -19,7 +19,12 @@ public class MainActivity extends AppCompatActivity {
     private static String name;
     private static String lastName;
     private static String email;
+    private static String password;
     private static String imageLink;
+    private static SearchFragment searchFragment;
+    private static GiftFragment giftFragment;
+    private static ProfileFragment profileFragment;
+    private static HomeFragment homeFragment;
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -29,25 +34,30 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationBarView bar = findViewById(R.id.bottom_navigation);
 
+        searchFragment = new SearchFragment();
+        giftFragment = new GiftFragment();
+        profileFragment = new ProfileFragment();
+        homeFragment = new HomeFragment();
+
         bar.setOnItemSelectedListener(item -> {
 
             Fragment selection = switch (item.getItemId()) {
-                case R.id.search_page -> new SearchFragment();
-                case R.id.gift_page -> new GiftFragment();
-                case R.id.profile_page -> new ProfileFragment();
-                default -> new HomeFragment();
+                case R.id.search_page -> searchFragment;
+                case R.id.gift_page -> giftFragment;
+                case R.id.profile_page -> profileFragment;
+                default -> homeFragment;
             };
-
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view, selection).commit();
             return true;
         });
     }
 
-    public static void updateUser(int newId, String newName, String newLastName, String newEmail, String newImageLink){
+    public static void updateUser(int newId, String newName, String newLastName, String newEmail, String newPassword, String newImageLink){
         id = newId;
         name = newName;
         lastName = newLastName;
         email = newEmail;
+        password = newPassword;
         imageLink = newImageLink;
     }
 
@@ -71,7 +81,24 @@ public class MainActivity extends AppCompatActivity {
         return email;
     }
 
+    public static String getPassword(){
+        return password;
+    }
+
     public static String getImageLink() {
         return imageLink;
+    }
+
+    public static Fragment getProfileFragment(){
+        return profileFragment;
+    }
+
+    public static void logOut() {
+        id = -1;
+        name = "";
+        lastName = "";
+        email = "";
+        password = "";
+        imageLink = "";
     }
 }
