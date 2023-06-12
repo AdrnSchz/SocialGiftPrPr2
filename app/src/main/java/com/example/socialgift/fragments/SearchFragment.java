@@ -23,10 +23,13 @@ import org.json.JSONObject;
 
 public class SearchFragment extends Fragment {
 
-    ImageView searchView;
+    private ImageView searchView;
 
-    EditText searchInput;
+    private EditText searchInput;
 
+    private RecyclerView recyclerView;
+
+    private AdapterList adapterList;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -34,17 +37,17 @@ public class SearchFragment extends Fragment {
 
         searchView = view.findViewById(R.id.search_icon);
         searchInput = view.findViewById(R.id.search_bar);
+        recyclerView = view.findViewById(R.id.search_recycler_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapterList = new AdapterList(getContext());
+
         searchView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                recyclerView.removeAllViews();
                 String endpoint = "users/search?s=" + searchInput.getText().toString();
                 APIClient.makeGETRequest(getContext(), endpoint, response -> {
-
-                    RecyclerView recyclerView = view.findViewById(R.id.search_recycler_view);
-                    AdapterList adapterList = new AdapterList(getContext());
-                    recyclerView.setHasFixedSize(true);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
                     try {
                         JSONArray jsonUsers = new JSONArray(response);
 
@@ -55,9 +58,10 @@ public class SearchFragment extends Fragment {
                                 adapterList.addItem(
                                         new ListComponent(
                                                 jsonUser.getString("name"),
-                                                jsonUser.getString("photo"),
+                                                jsonUser.getString("image"),
                                                 jsonUser.getString("email"),
-                                                null, null
+                                                null,
+                                                null
                                         )
                                 );
                             } catch (JSONException e) {
