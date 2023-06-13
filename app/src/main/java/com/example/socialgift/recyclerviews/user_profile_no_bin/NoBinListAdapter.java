@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.socialgift.R;
+import com.example.socialgift.fragments.ProfileFragment;
+import com.example.socialgift.fragments.UserProfileFragment;
 import com.example.socialgift.recyclerviews.user_profile.UserProfileListComponent;
 import com.example.socialgift.recyclerviews.user_profile.UserProfileViewHolder;
 
@@ -18,17 +20,19 @@ import java.util.List;
 public class NoBinListAdapter extends RecyclerView.Adapter<NoBinListViewHolder> {
     private List<NoBinListComponent> data;
     private LayoutInflater layoutInflater;
+    private UserProfileFragment profileFragment;
 
-    public NoBinListAdapter(Context context) {
+    public NoBinListAdapter(Context context, UserProfileFragment profileFragment) {
         this.layoutInflater = LayoutInflater.from(context);
         this.data = new ArrayList<>();
+        this.profileFragment = profileFragment;
     }
 
     @NonNull
     @Override
     public NoBinListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = layoutInflater.inflate(R.layout.cardview_no_bin_list, parent, false);
-        return new NoBinListViewHolder(view);
+        return new NoBinListViewHolder(view, profileFragment);
     }
 
     @Override

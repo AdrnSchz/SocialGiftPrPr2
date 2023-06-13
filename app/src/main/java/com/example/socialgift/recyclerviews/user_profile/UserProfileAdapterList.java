@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
 
 import com.example.socialgift.R;
+import com.example.socialgift.fragments.ProfileFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +18,13 @@ public class UserProfileAdapterList extends Adapter<UserProfileViewHolder> {
 
     private List<UserProfileListComponent> data;
     private LayoutInflater layoutInflater;
+    private ProfileFragment profileFragment;
 
-    public UserProfileAdapterList(Context context) {
+    public UserProfileAdapterList(Context context, ProfileFragment profileFragment) {
         if (context != null) {
             this.layoutInflater = LayoutInflater.from(context);
             this.data = new ArrayList<>();
+            this.profileFragment = profileFragment;
         }
     }
 
@@ -29,7 +32,7 @@ public class UserProfileAdapterList extends Adapter<UserProfileViewHolder> {
     @Override
     public UserProfileViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = layoutInflater.inflate(R.layout.cardview_user_profile, parent, false);
-        return new UserProfileViewHolder(view);
+        return new UserProfileViewHolder(view, profileFragment);
     }
 
     @Override

@@ -9,17 +9,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.socialgift.R;
-import com.example.socialgift.activities.MainActivity;
 import com.example.socialgift.api.APIClient;
-import com.example.socialgift.recyclerviews.user_profile.UserProfileAdapterList;
-import com.example.socialgift.recyclerviews.user_profile.UserProfileListComponent;
 import com.example.socialgift.recyclerviews.user_profile_no_bin.NoBinListAdapter;
 import com.example.socialgift.recyclerviews.user_profile_no_bin.NoBinListComponent;
 import com.squareup.picasso.Picasso;
@@ -29,7 +25,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -72,7 +67,7 @@ public class UserProfileFragment extends Fragment {
         });
 
         recyclerView = view.findViewById(R.id.user_profile_recycler_view);
-        adapterList = new NoBinListAdapter(getContext());
+        adapterList = new NoBinListAdapter(getContext(), this);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -88,7 +83,9 @@ public class UserProfileFragment extends Fragment {
                             if (userId == SearchFragment.id) {
                                 adapterList.addItem(
                                         new NoBinListComponent(
-                                                jsonWishlist.getString("name")
+                                                jsonWishlist.getString("name"),
+                                                jsonWishlist.getInt("id"),
+                                                userId
                                         )
                                 );
                             }

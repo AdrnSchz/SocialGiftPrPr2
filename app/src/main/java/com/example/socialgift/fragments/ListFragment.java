@@ -34,9 +34,9 @@ import java.util.Objects;
 
 public class ListFragment extends Fragment {
 
-    private static int id;
-    private static Fragment origin;
-    private static boolean canEdit;
+    private int id;
+    private Fragment origin;
+    private boolean canEdit;
     private ImageView backButton;
     private TextView name;
     private TextView createdBy;
@@ -163,12 +163,18 @@ public class ListFragment extends Fragment {
                         description.setText(data.getString("description"));
 
                         String dateStr = data.getString("end_date");
-                        TemporalAccessor ta = DateTimeFormatter.ISO_INSTANT.parse(dateStr);
-                        Instant ins = Instant.from(ta);
-                        Date d = Date.from(ins);
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-                        date.setText(dateFormat.format(d));
+                        if (!dateStr.equals("null")) {
+                            TemporalAccessor ta = DateTimeFormatter.ISO_INSTANT.parse(dateStr);
+                            Instant ins = Instant.from(ta);
+                            Date d = Date.from(ins);
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+                            date.setText(dateFormat.format(d));
+                        }
+                        else {
+                            date.setText(R.string.list_noenddate);
+                        }
 
                         APIClient.makeGETRequest(getContext(), "users/" + data.getInt("user_id"),
                                 user_response -> {
@@ -227,12 +233,12 @@ public class ListFragment extends Fragment {
         );
     }
 
-    public static void setList(int listId, int ownerId) {
-        id = listId;
+    public void setList(int id, int ownerId) {
+        this.id = id;
         canEdit = ownerId == MainActivity.getId();
     }
 
-    public static void setOrigin(Fragment originFragment) {
-        origin = originFragment;
+    public void setOrigin(Fragment origin) {
+        this.origin = origin;
     }
 }

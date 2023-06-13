@@ -37,10 +37,11 @@ public class ProfileFragment extends Fragment {
     private ImageView userImage;
     private TextView userName;
     private TextView userEmail;
+    private View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        view = inflater.inflate(R.layout.fragment_profile, container, false);
         AppCompatActivity thisActivity = (AppCompatActivity) getContext();
 
         ImageButton settingsButton = view.findViewById(R.id.user_profile_settings_button);
@@ -66,11 +67,17 @@ public class ProfileFragment extends Fragment {
             updateStats(thisActivity);
         });
 
+        updateLists();
+
+        return view;
+    }
+
+    public void updateLists() {
         APIClient.makeGETRequest(getContext(), "wishlists",
                 response -> {
 
                     RecyclerView recyclerView = view.findViewById(R.id.user_profile_recycler_view);
-                    UserProfileAdapterList adapterList = new UserProfileAdapterList(getContext());
+                    UserProfileAdapterList adapterList = new UserProfileAdapterList(getContext(), this);
                     recyclerView.setHasFixedSize(true);
                     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -83,7 +90,9 @@ public class ProfileFragment extends Fragment {
                             if (userId == MainActivity.getId()) {
                                 adapterList.addUserProfileItem(
                                         new UserProfileListComponent(
-                                                jsonWishlist.getString("name")
+                                                jsonWishlist.getString("name"),
+                                                jsonWishlist.getInt("id"),
+                                                userId
                                         )
                                 );
                             }
@@ -99,9 +108,7 @@ public class ProfileFragment extends Fragment {
                     Toast.makeText(getContext(), R.string.error_wishlists, Toast.LENGTH_LONG).show();
                 }
         );
-        return view;
     }
-
     @Override
     public void onResume(){
         super.onResume();
