@@ -114,8 +114,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/user_profile_recycler_view"
-        android:layout_width="418dp"
-        android:layout_height="400dp"
+        android:layout_width="414dp"
+        android:layout_height="440dp"
         android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

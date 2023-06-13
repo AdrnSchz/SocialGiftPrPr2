@@ -60,7 +60,7 @@ public class GiftDetailsFragment extends Fragment {
             new URL(GiftFragment.photo).toURI();
             Picasso.get().load(GiftFragment.photo).into(photo);
         } catch (MalformedURLException | URISyntaxException e) {
-            e.printStackTrace();
+            Picasso.get().load(MainActivity.PLACEHOLDER_IMG).into(photo);
         }
 
         deleteGift.setOnClickListener(view1 -> {

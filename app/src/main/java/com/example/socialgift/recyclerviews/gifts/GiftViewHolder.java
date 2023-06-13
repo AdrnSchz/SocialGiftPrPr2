@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.socialgift.R;
+import com.example.socialgift.activities.MainActivity;
 import com.example.socialgift.fragments.GiftFragment;
 import com.example.socialgift.recyclerviews.homepage.ListComponent;
 import com.squareup.picasso.Picasso;
@@ -43,10 +44,10 @@ public class GiftViewHolder extends RecyclerView.ViewHolder {
 
         try {
             new URL(item.getImage()).toURI();
+            Picasso.get().load(item.getImage()).into(giftPhoto);
         } catch (MalformedURLException | URISyntaxException e) {
-            return;
+            Picasso.get().load(MainActivity.PLACEHOLDER_IMG).into(giftPhoto);
         }
-        Picasso.get().load(item.getImage()).into(giftPhoto);
     }
 
 }

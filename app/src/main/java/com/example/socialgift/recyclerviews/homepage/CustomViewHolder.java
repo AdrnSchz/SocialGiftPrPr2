@@ -7,6 +7,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 import com.example.socialgift.R;
+import com.example.socialgift.activities.MainActivity;
 import com.squareup.picasso.Picasso;
 
 import java.net.MalformedURLException;
@@ -39,9 +40,9 @@ public class CustomViewHolder extends ViewHolder {
 
         try {
             new URL(item.getUserImage()).toURI();
+            Picasso.get().load(item.getUserImage()).into(userPhoto);
         } catch (MalformedURLException | URISyntaxException e) {
-            return;
+            Picasso.get().load(MainActivity.PLACEHOLDER_IMG).into(userPhoto);
         }
-        Picasso.get().load(item.getUserImage()).into(userPhoto);
     }
 }

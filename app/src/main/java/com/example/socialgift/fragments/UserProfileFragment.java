@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.socialgift.R;
+import com.example.socialgift.activities.MainActivity;
 import com.example.socialgift.api.APIClient;
 import com.example.socialgift.recyclerviews.user_profile_no_bin.NoBinListAdapter;
 import com.example.socialgift.recyclerviews.user_profile_no_bin.NoBinListComponent;
@@ -53,8 +54,7 @@ public class UserProfileFragment extends Fragment {
              new URL(SearchFragment.photo).toURI();
              Picasso.get().load(SearchFragment.photo).into(userImage);
         } catch (MalformedURLException | URISyntaxException e) {
-            e.printStackTrace();
-            Toast.makeText(getContext(), "Invalid URL", Toast.LENGTH_SHORT).show();
+            Picasso.get().load(MainActivity.PLACEHOLDER_IMG).into(userImage);
         }
 
         backButton.setOnClickListener(v -> {

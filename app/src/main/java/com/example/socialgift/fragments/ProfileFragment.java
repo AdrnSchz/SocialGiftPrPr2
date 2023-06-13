@@ -114,13 +114,12 @@ public class ProfileFragment extends Fragment {
         super.onResume();
         userName.setText(MainActivity.getName());
         userEmail.setText(MainActivity.getEmail());
-        URI uri;
         try {
-            uri = new URL(MainActivity.getImageLink()).toURI();
+            URI uri = new URL(MainActivity.getImageLink()).toURI();
+            Picasso.get().load(String.valueOf(uri)).into(userImage);
         } catch (MalformedURLException | URISyntaxException e) {
-            return;
+            Picasso.get().load(MainActivity.PLACEHOLDER_IMG).into(userImage);
         }
-        Picasso.get().load(String.valueOf(uri)).into(userImage);
     }
 
     public void updateStats(AppCompatActivity thisActivity){

@@ -73,13 +73,12 @@ public class StatisticsFragment extends Fragment {
         numGifts.setText(String.format(numberOfGifts));
         numLists.setText(String.format(numberOfLists));
         numPoints.setText(String.format(numberOfPoints));
-        URI uri;
         try {
-            uri = new URL(MainActivity.getImageLink()).toURI();
+            URI uri = new URL(MainActivity.getImageLink()).toURI();
+            Picasso.get().load(String.valueOf(uri)).into(userImage);
         } catch (MalformedURLException | URISyntaxException e) {
-            return;
+            Picasso.get().load(MainActivity.PLACEHOLDER_IMG).into(userImage);
         }
-        Picasso.get().load(String.valueOf(uri)).into(userImage);
     }
 
 }
