@@ -38,17 +38,6 @@ public class UserProfileAdapterList extends Adapter<UserProfileViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull UserProfileViewHolder holder, int position) {
         holder.bindData(data.get(position));
-
-        holder.getDeleteListButton().setOnClickListener(v -> {
-            for (int i = 0; i < data.size(); i++) {
-                if (data.get(i).getListName().equals(holder.getListName())) {
-                    removeItem();
-                    data.remove(i);
-                    notifyItemRemoved(i);
-                    break;
-                }
-            }
-        });
     }
 
     @Override

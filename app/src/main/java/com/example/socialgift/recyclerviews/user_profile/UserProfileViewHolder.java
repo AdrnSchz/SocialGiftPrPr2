@@ -38,6 +38,8 @@ public class UserProfileViewHolder extends ViewHolder {
             profileFragment.requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view, listFragment).commit();
         });
 
+
+
         deleteListButton.setOnClickListener(v -> {
             UserProfileListComponent list = (UserProfileListComponent) card.getTag();
 
@@ -69,8 +71,16 @@ public class UserProfileViewHolder extends ViewHolder {
         });
     }
 
-    void bindData(final UserProfileListComponent userProfileItem) {
+    public void bindData(final UserProfileListComponent userProfileItem) {
         listName.setText(userProfileItem.getListName());
         card.setTag(userProfileItem);
+    }
+
+    public ImageButton getDeleteListButton(){
+        return deleteListButton;
+    }
+
+    public String getListName(){
+        return listName.getText().toString();
     }
 }
