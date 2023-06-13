@@ -45,20 +45,13 @@ public class WishlistViewHolder extends ViewHolder {
                                     booked.setTag("UNCHECKED");
                                 }
                                 else {
-                                    Toast.makeText(view.getContext(), res.getString("detail"), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(view.getContext(), R.string.error_list_book, Toast.LENGTH_SHORT).show();
                                 }
                             } catch (JSONException e) {
                                 Toast.makeText(view.getContext(), R.string.error_list_book, Toast.LENGTH_SHORT).show();
                             }
                         },
-                        error -> {
-                            try {
-                                JSONObject res = new JSONObject(new String(error.networkResponse.data));
-                                Toast.makeText(view.getContext(), res.getString("detail"), Toast.LENGTH_SHORT).show();
-                            } catch (JSONException e) {
-                                Toast.makeText(view.getContext(), R.string.error_list_book, Toast.LENGTH_SHORT).show();
-                            }
-                        }
+                        error -> Toast.makeText(view.getContext(), R.string.error_list_book, Toast.LENGTH_SHORT).show()
                 );
             }
             else {
@@ -72,21 +65,10 @@ public class WishlistViewHolder extends ViewHolder {
                                 booked.setImageResource(R.drawable.checkedbox_icon_foreground);
                                 booked.setTag("CHECKED");
                             } catch (JSONException e) {
-                                try {
-                                    Toast.makeText(view.getContext(), response.getString("detail"), Toast.LENGTH_SHORT).show();
-                                } catch (JSONException ex) {
-                                    Toast.makeText(view.getContext(), R.string.error_list_book, Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        },
-                        error -> {
-                            try {
-                                JSONObject res = new JSONObject(new String(error.networkResponse.data));
-                                Toast.makeText(view.getContext(), res.getString("detail"), Toast.LENGTH_SHORT).show();
-                            } catch (JSONException e) {
                                 Toast.makeText(view.getContext(), R.string.error_list_book, Toast.LENGTH_SHORT).show();
                             }
-                        }
+                        },
+                        error -> Toast.makeText(view.getContext(), R.string.error_list_book, Toast.LENGTH_SHORT).show()
                 );
             }
         });
