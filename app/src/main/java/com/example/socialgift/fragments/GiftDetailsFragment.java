@@ -29,6 +29,8 @@ import org.json.JSONObject;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GiftDetailsFragment extends Fragment {
 
@@ -95,8 +97,8 @@ public class GiftDetailsFragment extends Fragment {
                     response -> {
                         try {
                             JSONArray jsonWishlists = new JSONArray(response);
-                            String[] listNames = new String[jsonWishlists.length()];
-                            int[] listIds = new int[jsonWishlists.length()];
+                            //String[] listNames = new String[jsonWishlists.length()];
+                            List<String> listNames = new ArrayList<>();
                             int j = 0;
 
                             for (int i = 0; i < jsonWishlists.length(); i++) {
@@ -104,53 +106,57 @@ public class GiftDetailsFragment extends Fragment {
                                 int userId = jsonWishlist.getInt("user_id");
 
                                 if (userId == MainActivity.getId()) {
-                                    listNames[j] = jsonWishlist.getString("name");
+                                    listNames.add(jsonWishlist.getString("name"));
                                     j++;
                                 }
                             }
+                            if (listNames.size() == 0) {
+                                Toast.makeText(getContext(), "Create a list before adding items", Toast.LENGTH_LONG).show();
+                            }
+                            else {
+                                builder.setItems(listNames.toArray(new String[0]), (dialog, which) -> {
+                                    try {
+                                        JSONObject list = jsonWishlists.getJSONObject(which);
 
-                            builder.setItems(listNames, (dialog, which) -> {
-                                try {
-                                    JSONObject list = jsonWishlists.getJSONObject(which);
+                                        AlertDialog.Builder priorityBuilder = new AlertDialog.Builder(getContext());
+                                        priorityBuilder.setTitle("Choose a priority");
 
-                                    AlertDialog.Builder priorityBuilder = new AlertDialog.Builder(getContext());
-                                    priorityBuilder.setTitle("Choose a priority");
-
-                                    String[] priorities = {"Low", "Medium", "High", "Very High"};
-                                    priorityBuilder.setItems(priorities, (dialog1, priority) -> {
-                                        try{
-                                            APIClient.makePOSTRequest(getContext(), "gifts",
-                                                    new JSONObject()
-                                                            .put("wishlist_id", list.getInt("id"))
-                                                            .put("product_url", APIClient.PRODUCTS_API + "products/" + GiftFragment.id)
-                                                            .put("priority", priority * 25),
-                                                    gift_response -> {
-                                                        try {
-                                                            gift_response.getInt("id"); // Throws exception if operation unsuccessful
-                                                            Toast.makeText(getContext(), R.string.success_add_product, Toast.LENGTH_LONG).show();
-                                                        } catch (JSONException e) {
+                                        String[] priorities = {"Low", "Medium", "High", "Very High"};
+                                        priorityBuilder.setItems(priorities, (dialog1, priority) -> {
+                                            try {
+                                                APIClient.makePOSTRequest(getContext(), "gifts",
+                                                        new JSONObject()
+                                                                .put("wishlist_id", list.getInt("id"))
+                                                                .put("product_url", APIClient.PRODUCTS_API + "products/" + GiftFragment.id)
+                                                                .put("priority", priority * 25),
+                                                        gift_response -> {
+                                                            try {
+                                                                gift_response.getInt("id"); // Throws exception if operation unsuccessful
+                                                                Toast.makeText(getContext(), R.string.success_add_product, Toast.LENGTH_LONG).show();
+                                                            } catch (JSONException e) {
+                                                                Toast.makeText(getContext(), R.string.error_add_product, Toast.LENGTH_LONG).show();
+                                                            }
+                                                        },
+                                                        error -> {
                                                             Toast.makeText(getContext(), R.string.error_add_product, Toast.LENGTH_LONG).show();
                                                         }
-                                                    },
-                                                    error -> {
-                                                        Toast.makeText(getContext(), R.string.error_add_product, Toast.LENGTH_LONG).show();
-                                                    }
-                                            );
-                                        } catch (JSONException e) {
-                                            Toast.makeText(getContext(), R.string.error_add_product, Toast.LENGTH_LONG).show();
-                                        }
-                                    });
+                                                );
+                                            } catch (JSONException e) {
+                                                Toast.makeText(getContext(), R.string.error_add_product, Toast.LENGTH_LONG).show();
+                                            }
+                                        });
 
-                                    AlertDialog priorityDialog = priorityBuilder.create();
-                                    priorityDialog.show();
+                                        AlertDialog priorityDialog = priorityBuilder.create();
+                                        priorityDialog.show();
 
-                                } catch (JSONException e) {
-                                    Toast.makeText(getContext(), R.string.error_list_process_product, Toast.LENGTH_LONG).show();
-                                }
-                            });
+                                    } catch (JSONException e) {
+                                        Toast.makeText(getContext(), R.string.error_list_process_product, Toast.LENGTH_LONG).show();
+                                    }
+                                });
 
-                            AlertDialog dialog = builder.create();
-                            dialog.show();
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                            }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
