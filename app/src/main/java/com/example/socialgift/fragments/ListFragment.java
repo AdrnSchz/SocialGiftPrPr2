@@ -42,6 +42,7 @@ public class ListFragment extends Fragment {
     private TextView createdBy;
     private TextView date;
     private TextView description;
+    public static int gift_id;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -143,7 +144,7 @@ public class ListFragment extends Fragment {
 
     private void loadData(View view) {
         RecyclerView recyclerView = view.findViewById(R.id.list_recycler_view);
-        WishlistAdapterList wishlistAdapterList = new WishlistAdapterList(getContext());
+        WishlistAdapterList wishlistAdapterList = new WishlistAdapterList(getContext(), this);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(wishlistAdapterList);
@@ -240,5 +241,14 @@ public class ListFragment extends Fragment {
 
     public void setOrigin(Fragment origin) {
         this.origin = origin;
+    }
+
+    public void gotoDetails(int id) {
+        this.id = gift_id;
+        GiftDetailsFragment fragment = new GiftDetailsFragment();
+        fragment.setFromList(true);
+
+        requireActivity().getSupportFragmentManager().beginTransaction().
+                replace(R.id.fragment_container_view, fragment).commit();
     }
 }

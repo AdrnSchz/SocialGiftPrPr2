@@ -92,9 +92,11 @@ public class GiftFragment extends Fragment {
         this.price = price;
 
         AppCompatActivity thisActivity = (AppCompatActivity) getContext();
+        GiftDetailsFragment giftDetailsFragment = new GiftDetailsFragment();
+        giftDetailsFragment.setFromList(false);
 
         thisActivity.getSupportFragmentManager().beginTransaction().
-                replace(R.id.fragment_container_view, new GiftDetailsFragment()).commit();
+                replace(R.id.fragment_container_view, giftDetailsFragment).commit();
     }
 
 }

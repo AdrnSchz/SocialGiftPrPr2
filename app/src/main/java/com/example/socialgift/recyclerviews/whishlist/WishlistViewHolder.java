@@ -1,6 +1,7 @@
 package com.example.socialgift.recyclerviews.whishlist;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 import com.example.socialgift.R;
 import com.example.socialgift.api.APIClient;
+import com.example.socialgift.fragments.ListFragment;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -22,13 +24,19 @@ public class WishlistViewHolder extends ViewHolder {
     private ImageView priority;
     private TextView giftName;
     private ImageView booked;
+    private RelativeLayout layout;
     private int id;
 
-    public WishlistViewHolder(View view) {
+    public WishlistViewHolder(View view, ListFragment listFragment) {
         super(view);
         giftName = view.findViewById(R.id.cvlist_name);
         priority = view.findViewById(R.id.cvlist_priority);
         booked = view.findViewById(R.id.cvlist_checkbox);
+        layout = view.findViewById(R.id.cv_list_layout);
+
+        layout.setOnClickListener(v -> {
+            listFragment.gotoDetails(id);
+        });
 
         booked.setOnClickListener(v -> {
 

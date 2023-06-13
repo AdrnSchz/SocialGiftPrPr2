@@ -37,11 +37,14 @@ public class GiftDetailsFragment extends Fragment {
     private TextView description, link, price, name;
     private ImageView photo;
 
+    private boolean fromList = false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_gift_details, container, false);
         AppCompatActivity thisActivity = (AppCompatActivity) getActivity();
+
+        checkFather();
 
         addToList = view.findViewById(R.id.details_add_to_list);
         deleteGift = view.findViewById(R.id.details_delete);
@@ -162,5 +165,31 @@ public class GiftDetailsFragment extends Fragment {
 
         return view;
 
+    }
+
+    public void setFromList(boolean bol) {
+        fromList = bol;
+    }
+
+    private void checkFather() {
+        if (fromList) {
+            APIClient.makeGETRequest(getContext(), APIClient.PRODUCTS_API, "products/" + ListFragment.gift_id,
+                    response -> {
+                        try {
+                            JSONObject jsonGift = new JSONObject(response);
+                            GiftFragment.name = jsonGift.getString("name");
+                            GiftFragment.description = jsonGift.getString("description");
+                            GiftFragment.link = jsonGift.getString("link");
+                            GiftFragment.price = jsonGift.getDouble("price");
+                            GiftFragment.photo = jsonGift.getString("photo");
+                            GiftFragment.id = jsonGift.getInt("id");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    },
+                    error -> {
+                        error.printStackTrace();
+                    });
+        }
     }
 }
