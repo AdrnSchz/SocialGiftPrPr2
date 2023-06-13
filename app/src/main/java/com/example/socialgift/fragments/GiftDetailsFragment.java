@@ -61,19 +61,27 @@ public class GiftDetailsFragment extends Fragment {
             Picasso.get().load(GiftFragment.photo).into(photo);
         } catch (MalformedURLException | URISyntaxException e) {
             e.printStackTrace();
-            Toast.makeText(getContext(), "Invalid URL", Toast.LENGTH_SHORT).show();
         }
 
         deleteGift.setOnClickListener(view1 -> {
             String endpoint = "products/" + GiftFragment.id;
             APIClient.makeDELETERequest(getContext(), APIClient.PRODUCTS_API, endpoint, response -> {
+                try {
+                    JSONObject res = new JSONObject(response);
+                    if (res.getBoolean("success")) {
+                        thisActivity.getSupportFragmentManager().beginTransaction().
+                                replace(R.id.fragment_container_view, new GiftFragment()).commit();
+                    }
+                    else {
+                        Toast.makeText(view.getContext(), res.getString("detail"), Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    Toast.makeText(view.getContext(),  R.string.error_profile_listdelete, Toast.LENGTH_LONG).show();
+                }
             }, error -> {
                 error.printStackTrace();
                 Toast.makeText(getContext(), "Error deleting the gift", Toast.LENGTH_LONG).show();
             } );
-
-            thisActivity.getSupportFragmentManager().beginTransaction().
-                    replace(R.id.fragment_container_view, new GiftFragment()).commit();
         });
 
         addToList.setOnClickListener(view1 -> {
