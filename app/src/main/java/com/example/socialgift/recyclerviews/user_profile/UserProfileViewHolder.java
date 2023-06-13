@@ -53,20 +53,13 @@ public class UserProfileViewHolder extends ViewHolder {
                                 profileFragment.updateLists();
                             }
                             else {
-                                Toast.makeText(view.getContext(), res.getString("detail"), Toast.LENGTH_LONG).show();
+                                Toast.makeText(view.getContext(), R.string.error_profile_listdelete, Toast.LENGTH_LONG).show();
                             }
                         } catch (JSONException e) {
-                            Toast.makeText(view.getContext(),  R.string.error_profile_listdelete, Toast.LENGTH_LONG).show();
+                            Toast.makeText(view.getContext(), R.string.error_profile_listdelete, Toast.LENGTH_LONG).show();
                         }
                     },
-                    error -> {
-                        try {
-                            JSONObject res = new JSONObject(new String(error.networkResponse.data));
-                            Toast.makeText(view.getContext(), res.getString("detail"), Toast.LENGTH_SHORT).show();
-                        } catch (JSONException e) {
-                            Toast.makeText(view.getContext(), R.string.error_profile_listdelete, Toast.LENGTH_SHORT).show();
-                        }
-                    }
+                    error -> Toast.makeText(view.getContext(), R.string.error_profile_listdelete, Toast.LENGTH_SHORT).show()
             );
         });
     }
