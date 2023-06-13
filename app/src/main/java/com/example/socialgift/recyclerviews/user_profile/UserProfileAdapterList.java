@@ -46,10 +46,8 @@ public class UserProfileAdapterList extends Adapter<UserProfileViewHolder> {
     }
 
     public void addUserProfileItem(UserProfileListComponent userProfileItem) {
-        data.add(userProfileItem);
-    }
-
-    private void removeItem(){
-
+        if (userProfileItem != null && data != null) {
+            data.add(userProfileItem);
+        }
     }
 }

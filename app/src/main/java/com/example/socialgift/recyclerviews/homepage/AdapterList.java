@@ -44,6 +44,8 @@ public class AdapterList extends Adapter<CustomViewHolder> {
     }
 
     public void addItem(ListComponent item) {
-        data.add(item);
+        if (data != null && item != null) {
+            data.add(item);
+        }
     }
 }
