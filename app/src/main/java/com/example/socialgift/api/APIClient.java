@@ -211,12 +211,12 @@ public class APIClient {
         VolleySingleton.getInstance(context).addToQueue(jsonObjectRequest);
     }
 
-    public static void makeDELETERequest(Context context, String endpoint, Response.Listener<String> listener, Response.ErrorListener errorListener) {
+    public static void makeDELETERequest(Context context, String baseUrl, String endpoint, Response.Listener<String> listener, Response.ErrorListener errorListener) {
 
         StringRequest stringRequest =
                 new StringRequest(
                         Request.Method.DELETE,
-                        DEFAULT_API + endpoint,
+                        baseUrl + endpoint,
                         listener,
                         errorListener
                 ) {
@@ -229,5 +229,10 @@ public class APIClient {
                 };
 
         VolleySingleton.getInstance(context).addToQueue(stringRequest);
+    }
+
+    public static void makeDELETERequest(Context context, String endpoint, Response.Listener<String> listener, Response.ErrorListener errorListener) {
+
+        makeDELETERequest(context, DEFAULT_API, endpoint, listener, errorListener);
     }
 }

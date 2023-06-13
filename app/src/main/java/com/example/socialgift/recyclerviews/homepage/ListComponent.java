@@ -4,7 +4,7 @@ public class ListComponent {
 
     private String userName;
     private String userEmail;
-    private String userImage; // TODO: string?
+    private String userImage;
     private String giftName;
     private String listName;
     private int id;

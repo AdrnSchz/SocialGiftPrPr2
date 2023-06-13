@@ -30,7 +30,7 @@ public class GiftViewHolder extends RecyclerView.ViewHolder {
         this.gift = item;
 
         relativeLayout.setOnClickListener(view1 -> {
-            giftFragment.gotoDetails(gift.getId(), gift.getGiftName(), gift.getDescritiption(), gift.getLink(),
+            giftFragment.gotoDetails(gift.getId(), name.getText().toString(), gift.getDescritiption(), gift.getLink(),
                     gift.getImage(), gift.getPrice());
         });
     }

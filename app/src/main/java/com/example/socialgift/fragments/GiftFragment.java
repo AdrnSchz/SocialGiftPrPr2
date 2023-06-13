@@ -93,9 +93,8 @@ public class GiftFragment extends Fragment {
 
         AppCompatActivity thisActivity = (AppCompatActivity) getContext();
 
-        //TODO goto gift details
-        //thisActivity.getSupportFragmentManager().beginTransaction().
-        //        replace(R.id.fragment_container_view, new GiftDetailsFragment()).commit();
+        thisActivity.getSupportFragmentManager().beginTransaction().
+                replace(R.id.fragment_container_view, new GiftDetailsFragment()).commit();
     }
 
 }
