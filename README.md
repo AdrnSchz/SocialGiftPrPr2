@@ -1,3 +1,3 @@
-# SocialGiftPrPr2
+# SocialGift
 
 Android application to manage gift list, add, remove and edit products, watch other people giftlist...
